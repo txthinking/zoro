@@ -20,9 +20,8 @@ Coming soon...
 
 ## Mr.2是什么
 
-Mr.2 可以帮助你将内网服务器暴露在外网.<br/>
-支持 TCP/UDP 协议, 当然也支持基于TCP的HTTP协议.<br/>
-遵循KISS原则.
+Mr.2 可以帮助你将内网服务器暴露在外网. 支持 TCP/UDP 协议, 当然也支持HTTP协议.<br/>
+让这个世界简单点.
 
 ## 下载
 
@@ -32,7 +31,7 @@ Mr.2 可以帮助你将内网服务器暴露在外网.<br/>
 | [mr2_darwin_amd64](https://github.com/txthinking/mr2/releases/download/v20190501/mr2_darwin_amd64) | MacOS | amd64 |
 | [mr2_windows_amd64.exe](https://github.com/txthinking/mr2/releases/download/v20190501/mr2_windows_amd64.exe) | Windows | amd64 |
 
-**更多平台下载请查看 [releases](https://github.com/txthinking/mr2/releases) **
+**更多平台下载请查看 [releases](https://github.com/txthinking/mr2/releases)**
 
 ### 服务端
 

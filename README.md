@@ -20,8 +20,7 @@ Coming soon...
 
 ## What is Mr.2
 
-Mr.2 can help you expose local server to external network.<br/>
-Mr.2 support both TCP/UDP, of course support HTTP.<br/>
+Mr.2 can help you expose local server to external network. Support both TCP/UDP, of course support HTTP.<br/>
 Keep it **simple**, **stupid**.
 
 ## Download
