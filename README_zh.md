@@ -1,7 +1,7 @@
 # Mr.2
 
 [![Build Status](https://travis-ci.org/txthinking/mr2.svg?branch=master)](https://travis-ci.org/txthinking/mr2) [![Go Report Card](https://goreportcard.com/badge/github.com/txthinking/mr2)](https://goreportcard.com/report/github.com/txthinking/mr2) [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
-[![ZH](https://img.shields.io/badge/%E4%B8%AD%E6%96%87-README-blue.svg)](https://github.com/txthinking/mr2/blob/master/README_zh.md)
+[![EN](https://img.shields.io/badge/English-README-blue.svg)](https://github.com/txthinking/mr2/blob/master/README.md)
 
 ---
 
@@ -11,51 +11,51 @@ Coming soon...
 
 ### Table of Contents
 
-* [What is Mr.2](#what-is-mr2)
-* [Download](#download)
-* [**Server**](#server)
-* [**Client**](#client)
-* [Contributing](#contributing)
-* [License](#license)
+* [Mr.2是什么](#mr2是什么)
+* [下载](#下载)
+* [**服务端**](#服务端)
+* [**客户端**](#客户端)
+* [贡献](#贡献)
+* [协议](#协议)
 
-## What is Mr.2
+## Mr.2是什么
 
-Mr.2 can help you expose local server to external network.<br/>
-Mr.2 support both TCP/UDP, of course support HTTP.<br/>
-Keep it **simple**, **stupid**.
+Mr.2 可以帮助你将内网服务器暴露在外网.<br/>
+支持 TCP/UDP 协议, 当然也支持基于TCP的HTTP协议.<br/>
+遵循KISS原则.
 
-## Download
+## 下载
 
-| Download | OS | Arch |
+| 下载 | 系统 | 架构 |
 | --- | --- | --- |
 | [mr2](https://github.com/txthinking/mr2/releases/download/v20190501/mr2) | Linux | amd64 |
 | [mr2_darwin_amd64](https://github.com/txthinking/mr2/releases/download/v20190501/mr2_darwin_amd64) | MacOS | amd64 |
 | [mr2_windows_amd64.exe](https://github.com/txthinking/mr2/releases/download/v20190501/mr2_windows_amd64.exe) | Windows | amd64 |
 
-**See [releases](https://github.com/txthinking/mr2/releases) for other platforms**
+**更多平台下载请查看 [releases](https://github.com/txthinking/mr2/releases) **
 
-### Server
+### 服务端
 
 ```
 $ mr2 server -l :9999 -p password
 ```
 
-### Client
+### 客户端
 
 ```
-# Local server is 127.0.0.1:1234, expect to expose: server_address:5678
+# 将本地服务 127.0.0.1:1234, 暴露在外网: server_address:5678
 $ mr2 client -s server_address:port -p password -P 5678 -c 127.0.0.1:1234
 ```
 
 ```
-# Local web root is /path/to/www, expect to expose: server_address:5678
+# 将本地目录 /path/to/www, 以HTTP协议暴露在外网: server_address:5678
 $ mr2 client -s server_address:port -p password -P 5678 --clientDiretory /path/to/www
 ```
 
-## Contributing
+## 贡献
 
-Please read [CONTRIBUTING.md](https://github.com/txthinking/mr2/blob/master/.github/CONTRIBUTING.md) first
+请先阅读 [CONTRIBUTING.md](https://github.com/txthinking/mr2/blob/master/.github/CONTRIBUTING.md)
 
-## License
+## 协议
 
-Licensed under The GPLv3 License
+以 GPLv3 协议开源
