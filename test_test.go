@@ -19,6 +19,3 @@ import "testing"
 // TestTest
 func TestTest(t *testing.T) {
 }
-
-func main() {
-}
