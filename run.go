@@ -14,9 +14,17 @@
 
 package main
 
-import "github.com/txthinking/x"
+// RunServer
+func RunServer(address, password string) error {
+	s, err := NewServer(address, password)
+	if err != nil {
+		return err
+	}
+	return s.ListenAndServe()
+}
 
-var Dial x.Dialer = x.DefaultDial
-
-func init() {
+// RunClient
+func RunClient(server, password string, serverPort int64, clientServer string, tcpTimeout, tcpDeadline, udpDeadline int64) error {
+	c := NewClient(server, password, serverPort, clientServer, tcpTimeout, tcpDeadline, udpDeadline)
+	return c.Run()
 }

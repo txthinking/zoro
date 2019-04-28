@@ -1,4 +1,4 @@
-// Copyright (c) 2016-present Cloud <cloud@txthinking.com>
+// Copyright (c) 2019-present Cloud <cloud@txthinking.com>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of version 3 of the GNU General Public

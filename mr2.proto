@@ -12,11 +12,29 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-package main
+syntax = "proto3";
 
-import "github.com/txthinking/x"
+option go_package = "main";
 
-var Dial x.Dialer = x.DefaultDial
-
-func init() {
+message TCPHello{
+    int64 Port = 1;
+    int64 TCPTimeout = 2;
+    int64 TCPDeadline = 3;
+    string Key = 4;
 }
+
+message PingPong{
+}
+
+message TCPPacket{
+    string Address = 1;
+    bytes Data = 2;
+}
+
+message UDPPacket{
+    int64 Port = 1;
+    string Address = 2;
+    bytes Data = 3;
+    string Key = 4;
+}
+
