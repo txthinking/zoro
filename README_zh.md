@@ -1,6 +1,6 @@
 # Mr.2
 
-[![Build Status](https://travis-ci.org/txthinking/mr2.svg?branch=master)](https://travis-ci.org/txthinking/mr2) [![Go Report Card](https://goreportcard.com/badge/github.com/txthinking/mr2)](https://goreportcard.com/report/github.com/txthinking/mr2) [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
+[![Build Status](https://travis-ci.org/txthinking/mr2.svg?branch=master)](https://travis-ci.org/txthinking/mr2) [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
 [![EN](https://img.shields.io/badge/English-README-blue.svg)](https://github.com/txthinking/mr2/blob/master/README.md)
 
 ### Table of Contents
