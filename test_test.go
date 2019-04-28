@@ -16,6 +16,6 @@ package main
 
 import "testing"
 
-// TestTest
+// TestTest .
 func TestTest(t *testing.T) {
 }

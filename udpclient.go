@@ -24,7 +24,7 @@ import (
 	cache "github.com/patrickmn/go-cache"
 )
 
-// UDPClient
+// UDPClient .
 type UDPClient struct {
 	Client  *Client
 	UDPConn *net.UDPConn
@@ -34,7 +34,7 @@ type UDPClient struct {
 	Error   chan error
 }
 
-// NewUDPClient
+// NewUDPClient .
 func NewUDPClient(c *Client) (*UDPClient, error) {
 	tmp, err := Dial.Dial("udp", c.Server)
 	if err != nil {
@@ -85,7 +85,7 @@ func NewUDPClient(c *Client) (*UDPClient, error) {
 	return uc, nil
 }
 
-// Run
+// Run .
 func (c *UDPClient) Run() error {
 	defer close(c.Done)
 	defer c.UDPConn.Close()
@@ -104,7 +104,7 @@ func (c *UDPClient) Run() error {
 	return nil
 }
 
-// Stop
+// Stop .
 func (c *UDPClient) Stop() {
 	select {
 	case <-c.Done:
@@ -113,7 +113,7 @@ func (c *UDPClient) Stop() {
 	}
 }
 
-// Ping server
+// Ping server .
 func (c *UDPClient) Ping() {
 	for {
 		time.Sleep(5 * time.Second)
@@ -138,7 +138,7 @@ func (c *UDPClient) Ping() {
 	}
 }
 
-// Read data from server
+// Read data from server.
 func (c *UDPClient) Read() {
 	var b [65536]byte
 	for {

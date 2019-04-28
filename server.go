@@ -25,7 +25,7 @@ import (
 	"github.com/txthinking/x"
 )
 
-// Server
+// Server .
 type Server struct {
 	TCPAddr   *net.TCPAddr
 	UDPAddr   *net.UDPAddr
@@ -35,7 +35,7 @@ type Server struct {
 	Ckv       *x.CryptKV
 }
 
-// NewServer
+// NewServer .
 func NewServer(addr, password string) (*Server, error) {
 	taddr, err := net.ResolveTCPAddr("tcp", addr)
 	if err != nil {
@@ -56,7 +56,7 @@ func NewServer(addr, password string) (*Server, error) {
 	return s, nil
 }
 
-// ListenAndServe
+// ListenAndServe .
 func (s *Server) ListenAndServe() error {
 	errch := make(chan error)
 	go func() {

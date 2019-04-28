@@ -25,7 +25,7 @@ import (
 	cache "github.com/patrickmn/go-cache"
 )
 
-//TCPClient
+//TCPClient .
 type TCPClient struct {
 	Client  *Client
 	TCPConn *net.TCPConn
@@ -35,7 +35,7 @@ type TCPClient struct {
 	Error   chan error
 }
 
-// NewTCPClient
+// NewTCPClient .
 func NewTCPClient(c *Client) (*TCPClient, error) {
 	tmp, err := Dial.Dial("tcp", c.Server)
 	if err != nil {
@@ -83,7 +83,7 @@ func NewTCPClient(c *Client) (*TCPClient, error) {
 	return tc, nil
 }
 
-// Run
+// Run .
 func (c *TCPClient) Run() error {
 	defer close(c.Done)
 	defer c.TCPConn.Close()
@@ -107,7 +107,7 @@ func (c *TCPClient) Run() error {
 	return nil
 }
 
-// Stop
+// Stop .
 func (c *TCPClient) Stop() {
 	select {
 	case <-c.Done:
@@ -116,7 +116,7 @@ func (c *TCPClient) Stop() {
 	}
 }
 
-// Ping server
+// Ping server .
 func (c *TCPClient) Ping() {
 	for {
 		time.Sleep(5 * time.Second)
@@ -140,7 +140,7 @@ func (c *TCPClient) Ping() {
 	}
 }
 
-// Read data from server
+// Read data from server.
 func (c *TCPClient) Read() {
 	for {
 		if err := c.TCPConn.SetDeadline(time.Now().Add(time.Duration(10) * time.Second)); err != nil {

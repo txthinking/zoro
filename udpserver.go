@@ -22,14 +22,14 @@ import (
 	"github.com/gogo/protobuf/proto"
 )
 
-// UDPServer
+// UDPServer .
 type UDPServer struct {
 	Server  *Server
 	UDPConn *net.UDPConn
 	Addr    *net.UDPAddr
 }
 
-// NewUDPServer
+// NewUDPServer .
 func NewUDPServer(s *Server, port int64, addr *net.UDPAddr) (*UDPServer, error) {
 	uaddr, err := net.ResolveUDPAddr("udp", ":"+strconv.FormatInt(port, 10))
 	if err != nil {
@@ -82,7 +82,7 @@ func NewUDPServer(s *Server, port int64, addr *net.UDPAddr) (*UDPServer, error) 
 	}, nil
 }
 
-// ListenAndServe
+// ListenAndServe .
 func (s *UDPServer) ListenAndServe() error {
 	defer s.UDPConn.Close()
 	for {
@@ -106,12 +106,12 @@ func (s *UDPServer) ListenAndServe() error {
 	return nil
 }
 
-// Shutdown
+// Shutdown .
 func (s *UDPServer) Shutdown() {
 	s.UDPConn.Close()
 }
 
-// HandlePacket sends data to consumer
+// HandlePacket sends data to consumer.
 func (s *UDPServer) HandlePacket(p *UDPPacket) error {
 	if p.Address != "0" {
 		uaddr, err := net.ResolveUDPAddr("udp", p.Address)

@@ -26,7 +26,7 @@ import (
 	cache "github.com/patrickmn/go-cache"
 )
 
-// TCPServer
+// TCPServer .
 type TCPServer struct {
 	Server      *Server
 	Cache       *cache.Cache
@@ -39,7 +39,7 @@ type TCPServer struct {
 	Error       chan error
 }
 
-// NewTCPServer
+// NewTCPServer .
 func NewTCPServer(s *Server, c *net.TCPConn) (*TCPServer, error) {
 	if err := c.SetKeepAlivePeriod(time.Duration(60) * time.Second); err != nil {
 		return nil, err
@@ -85,7 +85,7 @@ func NewTCPServer(s *Server, c *net.TCPConn) (*TCPServer, error) {
 	}, nil
 }
 
-// ListenAndServe
+// ListenAndServe .
 func (s *TCPServer) ListenAndServe() error {
 	defer close(s.Done)
 	defer s.TCPListen.Close()
@@ -107,7 +107,7 @@ func (s *TCPServer) ListenAndServe() error {
 	return nil
 }
 
-// Shutdown
+// Shutdown .
 func (s *TCPServer) Shutdown() {
 	select {
 	case <-s.Done:
@@ -116,7 +116,7 @@ func (s *TCPServer) Shutdown() {
 	}
 }
 
-// Accept consumer
+// Accept consumer.
 func (s *TCPServer) Accept() {
 	for {
 		c1, err := s.TCPListen.AcceptTCP()
@@ -177,7 +177,7 @@ func (s *TCPServer) Accept() {
 	}
 }
 
-// Read data from client
+// Read data from client.
 func (s *TCPServer) Read() {
 	for {
 		if err := s.TCPConn.SetDeadline(time.Now().Add(time.Duration(10) * time.Second)); err != nil {

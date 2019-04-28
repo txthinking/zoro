@@ -21,7 +21,7 @@ import (
 	"github.com/txthinking/x"
 )
 
-// Client
+// Client .
 type Client struct {
 	Server       string
 	ServerPort   int64
@@ -34,7 +34,7 @@ type Client struct {
 	Ckv          *x.CryptKV
 }
 
-// NewClient
+// NewClient .
 func NewClient(server, password string, serverPort int64, clientServer string, tcpTimeout, tcpDeadline, udpDeadline int64) *Client {
 	c := &Client{
 		Server:       server,
@@ -51,7 +51,7 @@ func NewClient(server, password string, serverPort int64, clientServer string, t
 	return c
 }
 
-// Run
+// Run .
 func (c *Client) Run() error {
 	t, err := NewTCPClient(c)
 	if err != nil {
