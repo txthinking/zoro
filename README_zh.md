@@ -53,7 +53,7 @@ $ mr2 client -s server_address:port -p password -P 5678 --clientDiretory /path/t
 $ mr2 client -s server_address:port -p password -P 5678 -c 127.0.0.1:8080
 
 # 然后
-你的外网HTTP服务: http://server_address:5678
+你的外网HTTP服务: server_address:5678
 ```
 
 #### SSH登录到内网机器
@@ -82,7 +82,7 @@ $ dig github.com @server_address -p 5678
 $ mr2 client -s server_address:port -p password -P 5678 --clientDirectory /path/to/www
 
 # 然后
-你的外网HTTP服务: http://server_address:5678
+你的外网HTTP服务: server_address:5678
 ```
 
 #### 任何基于TCP/UDP的你能想到的想法

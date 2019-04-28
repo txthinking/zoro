@@ -54,7 +54,7 @@ $ mr2 client -s server_address:port -p password -P 5678 --clientDiretory /path/t
 $ mr2 client -s server_address:port -p password -P 5678 -c 127.0.0.1:8080
 
 # then
-Your HTTP server in external network is: http://server_address:5678
+Your HTTP server in external network is: server_address:5678
 ```
 
 #### SSH into local computer
@@ -83,7 +83,7 @@ $ dig github.com @server_address -p 5678
 $ mr2 client -s server_address:port -p password -P 5678 --clientDirectory /path/to/www
 
 # then
-A HTTP server in external network is: http://server_address:5678
+A HTTP server in external network is: server_address:5678
 ```
 
 #### Any TCP-based/UDP-based ideas you think of
