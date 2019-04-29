@@ -81,11 +81,11 @@ func (s *Server) RunTCPServer() error {
 		if err != nil {
 			return err
 		}
-		go func() {
+		go func(c *net.TCPConn) {
 			if err := s.TCPHandle(c); err != nil {
 				log.Println(err)
 			}
-		}()
+		}(c)
 	}
 	return nil
 }
@@ -117,11 +117,11 @@ func (s *Server) RunUDPServer() error {
 		if err != nil {
 			return err
 		}
-		go func() {
-			if err := s.UDPHandle(addr, b[0:n]); err != nil {
+		go func(addr *net.UDPAddr, b []byte) {
+			if err := s.UDPHandle(addr, b); err != nil {
 				log.Println(err)
 			}
-		}()
+		}(addr, b[0:n])
 	}
 	return nil
 }
