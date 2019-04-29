@@ -4,7 +4,11 @@ if [ ! -d binary ]
 then
     mkdir binary
 fi
-exit;
+
+if [ -f binary.tgz ]
+then
+    rm binary.tgz
+fi
 
 GOOS=linux GOARCH=amd64 go build -o binary/mr2 .
 GOOS=linux GOARCH=386 go build -o binary/mr2_linux_386 .
