@@ -42,7 +42,7 @@ $ mr2 client -s server_address:port -p password -P 5678 -c 127.0.0.1:1234
 
 ```
 # 将本地目录 /path/to/www, 以HTTP协议暴露在外网: server_address:5678
-$ mr2 client -s server_address:port -p password -P 5678 --clientDiretory /path/to/www
+$ mr2 client -s server_address:port -p password -P 5678 --clientDirectory /path/to/www
 ```
 
 ### 示例
