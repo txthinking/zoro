@@ -43,7 +43,7 @@ $ mr2 client -s server_address:port -p password -P 5678 -c 127.0.0.1:1234
 
 ```
 # Local web root is /path/to/www, expect to expose: server_address:5678
-$ mr2 client -s server_address:port -p password -P 5678 --clientDiretory /path/to/www
+$ mr2 client -s server_address:port -p password -P 5678 --clientDirectory /path/to/www
 ```
 
 ### Example
