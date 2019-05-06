@@ -102,7 +102,7 @@ func main() {
 				},
 				cli.Int64Flag{
 					Name:  "clientPort",
-					Usage: "With clientDiretory",
+					Usage: "With clientDirectory",
 					Value: 54321,
 				},
 				cli.Int64Flag{
