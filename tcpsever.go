@@ -60,9 +60,21 @@ func NewTCPServer(s *Server, c *net.TCPConn) (*TCPServer, error) {
 	if err := proto.Unmarshal(b, h); err != nil {
 		return nil, err
 	}
-	tmp, err := s.Ckv.Decrypt(h.Key, "Mr.2", 3*60)
-	if err != nil || tmp != "TCPHello" {
-		return nil, errors.New("Hacking")
+	if len(s.PortCkv) == 0 {
+		tmp, err := s.Ckv.Decrypt(h.Key, "Mr.2", 3*60)
+		if err != nil || tmp != "TCPHello" {
+			return nil, errors.New(c.RemoteAddr().String() + " Hacking")
+		}
+	}
+	if len(s.PortCkv) != 0 {
+		ckv, ok := s.PortCkv[h.Port]
+		if !ok {
+			return nil, errors.New(c.RemoteAddr().String() + " try to open not allowed TCP port: " + strconv.FormatInt(h.Port, 10))
+		}
+		tmp, err := ckv.Decrypt(h.Key, "Mr.2", 3*60)
+		if err != nil || tmp != "TCPHello" {
+			return nil, errors.New(c.RemoteAddr().String() + " Hacking")
+		}
 	}
 	taddr, err := net.ResolveTCPAddr("tcp", ":"+strconv.FormatInt(h.Port, 10))
 	if err != nil {

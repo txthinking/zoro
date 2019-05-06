@@ -15,8 +15,8 @@
 package main
 
 // RunServer .
-func RunServer(address, password string) error {
-	s, err := NewServer(address, password)
+func RunServer(address, password string, portPassword []string) error {
+	s, err := NewServer(address, password, portPassword)
 	if err != nil {
 		return err
 	}

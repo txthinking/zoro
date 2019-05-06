@@ -22,9 +22,9 @@ Keep it **simple**, **stupid**.
 
 | Download | OS | Arch |
 | --- | --- | --- |
-| [mr2](https://github.com/txthinking/mr2/releases/download/v20190501/mr2) | Linux | amd64 |
-| [mr2_darwin_amd64](https://github.com/txthinking/mr2/releases/download/v20190501/mr2_darwin_amd64) | MacOS | amd64 |
-| [mr2_windows_amd64.exe](https://github.com/txthinking/mr2/releases/download/v20190501/mr2_windows_amd64.exe) | Windows | amd64 |
+| [mr2](https://github.com/txthinking/mr2/releases/download/v20190506/mr2) | Linux | amd64 |
+| [mr2_darwin_amd64](https://github.com/txthinking/mr2/releases/download/v20190506/mr2_darwin_amd64) | MacOS | amd64 |
+| [mr2_windows_amd64.exe](https://github.com/txthinking/mr2/releases/download/v20190506/mr2_windows_amd64.exe) | Windows | amd64 |
 
 See [releases](https://github.com/txthinking/mr2/releases) for other platforms. Or `go get github.com/txthinking/mr2`.
 
@@ -32,6 +32,11 @@ See [releases](https://github.com/txthinking/mr2/releases) for other platforms. 
 
 ```
 $ mr2 server -l :9999 -p password
+```
+
+```
+# Only allow partial ports, and set password on each port
+$ mr2 server -l :9999 -P '5678 password' -P '6789 password1'
 ```
 
 ### Client

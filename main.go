@@ -32,7 +32,7 @@ var debugListen string
 func main() {
 	app := cli.NewApp()
 	app.Name = "Mr.2"
-	app.Version = "20190501"
+	app.Version = "20190506"
 	app.Usage = "Expose local server to external network"
 	app.Author = "Cloud"
 	app.Email = "cloud@txthinking.com"
@@ -62,9 +62,13 @@ func main() {
 					Name:  "password, p",
 					Usage: "Password",
 				},
+				cli.StringSliceFlag{
+					Name:  "portPassword, P",
+					Usage: "Only allow this port and password, like '1000 password'. If you specify this parameter, --password will be ignored",
+				},
 			},
 			Action: func(c *cli.Context) error {
-				if c.String("listen") == "" || c.String("password") == "" {
+				if c.String("listen") == "" {
 					cli.ShowCommandHelp(c, "server")
 					return nil
 				}
@@ -73,7 +77,7 @@ func main() {
 						log.Println(http.ListenAndServe(debugListen, nil))
 					}()
 				}
-				return RunServer(c.String("listen"), c.String("password"))
+				return RunServer(c.String("listen"), c.String("password"), c.StringSlice("portPassword"))
 			},
 		},
 		cli.Command{

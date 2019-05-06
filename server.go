@@ -19,6 +19,7 @@ import (
 	"log"
 	"net"
 	"strconv"
+	"strings"
 
 	"github.com/gogo/protobuf/proto"
 	cache "github.com/patrickmn/go-cache"
@@ -33,10 +34,26 @@ type Server struct {
 	UDPConn   *net.UDPConn
 	Cache     *cache.Cache
 	Ckv       *x.CryptKV
+	PortCkv   map[int64]*x.CryptKV
 }
 
 // NewServer .
-func NewServer(addr, password string) (*Server, error) {
+func NewServer(addr, password string, portPassword []string) (*Server, error) {
+	pc := make(map[int64]*x.CryptKV)
+	for _, v := range portPassword {
+		l := strings.Split(v, " ")
+		if len(l) != 2 {
+			return nil, errors.New("Wrong format: " + v)
+		}
+		port, err := strconv.ParseInt(l[0], 10, 64)
+		if err != nil {
+			return nil, err
+		}
+		ckv := &x.CryptKV{
+			AESKey: []byte(l[1]),
+		}
+		pc[port] = ckv
+	}
 	taddr, err := net.ResolveTCPAddr("tcp", addr)
 	if err != nil {
 		return nil, err
@@ -52,6 +69,7 @@ func NewServer(addr, password string) (*Server, error) {
 		Ckv: &x.CryptKV{
 			AESKey: []byte(password),
 		},
+		PortCkv: pc,
 	}
 	return s, nil
 }
@@ -133,11 +151,7 @@ func (s *Server) UDPHandle(addr *net.UDPAddr, b []byte) error {
 		return err
 	}
 	if p.Address == "" {
-		tmp, err := s.Ckv.Decrypt(p.Key, "Mr.2", 3*60)
-		if err != nil || tmp != "UDPPacket" {
-			return errors.New("Hacking")
-		}
-		u, err := NewUDPServer(s, p.Port, addr)
+		u, err := NewUDPServer(s, p, addr)
 		if err != nil {
 			return err
 		}

@@ -15,6 +15,8 @@
 package main
 
 import (
+	"errors"
+	"log"
 	"net"
 	"strconv"
 	"time"
@@ -30,40 +32,52 @@ type UDPServer struct {
 }
 
 // NewUDPServer .
-func NewUDPServer(s *Server, port int64, addr *net.UDPAddr) (*UDPServer, error) {
-	uaddr, err := net.ResolveUDPAddr("udp", ":"+strconv.FormatInt(port, 10))
-	if err != nil {
-		return nil, err
-	}
-	c1, err := net.ListenUDP("udp", uaddr)
-	if err != nil {
+func NewUDPServer(s *Server, p *UDPPacket, addr *net.UDPAddr) (*UDPServer, error) {
+	bye := func(err error) {
 		p := &UDPPacket{
 			Address: err.Error(),
 		}
 		b, err1 := proto.Marshal(p)
 		if err1 != nil {
-			return nil, err1
+			log.Println(err1)
 		}
 		if _, err := s.UDPConn.WriteToUDP(b, addr); err != nil {
-			return nil, err
+			log.Println(err)
 		}
+	}
+	if len(s.PortCkv) == 0 {
+		tmp, err := s.Ckv.Decrypt(p.Key, "Mr.2", 3*60)
+		if err != nil || tmp != "UDPPacket" {
+			bye(errors.New("Try another password"))
+			return nil, errors.New(addr.String() + " Hacking")
+		}
+	}
+	if len(s.PortCkv) != 0 {
+		ckv, ok := s.PortCkv[p.Port]
+		if !ok {
+			bye(errors.New("Not allowed port"))
+			return nil, errors.New(addr.String() + " try to open not allowed UDP port: " + strconv.FormatInt(p.Port, 10))
+		}
+		tmp, err := ckv.Decrypt(p.Key, "Mr.2", 3*60)
+		if err != nil || tmp != "UDPPacket" {
+			bye(errors.New("Try another password"))
+			return nil, errors.New(addr.String() + " Hacking")
+		}
+	}
+	uaddr, err := net.ResolveUDPAddr("udp", ":"+strconv.FormatInt(p.Port, 10))
+	if err != nil {
+		return nil, err
+	}
+	c1, err := net.ListenUDP("udp", uaddr)
+	if err != nil {
+		bye(err)
 		return nil, err
 	}
 	if err := c1.SetDeadline(time.Now().Add(time.Duration(10) * time.Second)); err != nil {
 		c1.Close()
-		p := &UDPPacket{
-			Address: err.Error(),
-		}
-		b, err := proto.Marshal(p)
-		if err != nil {
-			return nil, err
-		}
-		if _, err := s.UDPConn.WriteToUDP(b, addr); err != nil {
-			return nil, err
-		}
 		return nil, err
 	}
-	p := &UDPPacket{
+	p = &UDPPacket{
 		Address: "0",
 	}
 	b, err := proto.Marshal(p)
