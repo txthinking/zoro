@@ -17,7 +17,9 @@ GOOS=linux GOARCH=arm GOARM=7 go build -o binary/mr2_linux_arm7 .
 GOOS=linux GOARCH=arm GOARM=6 go build -o binary/mr2_linux_arm6 .
 GOOS=linux GOARCH=arm GOARM=5 go build -o binary/mr2_linux_arm5 .
 GOOS=linux GOARCH=mips go build -o binary/mr2_linux_mips .
+GOOS=linux GOARCH=mips GOMIPS=softfloat go build -o binary/mr2_linux_mips_sf .
 GOOS=linux GOARCH=mipsle go build -o binary/mr2_linux_mipsle .
+GOOS=linux GOARCH=mipsle GOMIPS=softfloat go build -o binary/mr2_linux_mipsle_sf .
 GOOS=linux GOARCH=mips64 go build -o binary/mr2_linux_mips64 .
 GOOS=linux GOARCH=mips64le go build -o binary/mr2_linux_mips64le .
 GOOS=linux GOARCH=ppc64 go build -o binary/mr2_linux_ppc64 .
