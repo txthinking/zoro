@@ -153,6 +153,27 @@ func (s *TCPServer) Accept() {
 					return
 				}
 			}
+			defer func() {
+				p := &TCPPacket{
+					Address: c1.RemoteAddr().String(),
+				}
+				b, err := proto.Marshal(p)
+				if err != nil {
+					select {
+					case <-s.Done:
+						return
+					case s.Error <- err:
+					}
+					return
+				}
+				bb := make([]byte, 2)
+				binary.BigEndian.PutUint16(bb, uint16(len(b)))
+				select {
+				case <-s.Done:
+					return
+				case s.Data <- append(append([]byte{0x02}, bb...), b...):
+				}
+			}()
 			var bf [1024 * 2]byte
 			for {
 				if s.TCPDeadline != 0 {

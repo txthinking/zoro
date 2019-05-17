@@ -174,6 +174,25 @@ func (c *TCPClient) Read() {
 		if k == 0x00 {
 			continue
 		}
+		if k == 0x02 {
+			p := &TCPPacket{}
+			if err := proto.Unmarshal(b, p); err != nil {
+				select {
+				case <-c.Done:
+					return
+				case c.Error <- err:
+				}
+				return
+			}
+			i, ok := c.Cache.Get(p.Address)
+			if ok {
+				c1 := i.(*net.TCPConn)
+				c.Cache.Delete(p.Address)
+				c1.Close()
+				return
+			}
+			continue
+		}
 		if k == 0x01 {
 			p := &TCPPacket{}
 			if err := proto.Unmarshal(b, p); err != nil {
