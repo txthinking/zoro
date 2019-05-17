@@ -22,11 +22,11 @@ Keep it **simple**, **stupid**.
 
 | Download | OS | Arch |
 | --- | --- | --- |
-| [mr2](https://github.com/txthinking/mr2/releases/download/v20190506/mr2) | Linux | amd64 |
-| [mr2_darwin_amd64](https://github.com/txthinking/mr2/releases/download/v20190506/mr2_darwin_amd64) | MacOS | amd64 |
-| [mr2_windows_amd64.exe](https://github.com/txthinking/mr2/releases/download/v20190506/mr2_windows_amd64.exe) | Windows | amd64 |
+| [mr2](https://github.com/txthinking/mr2/releases/download/v20190518/mr2) | Linux | amd64 |
+| [mr2_darwin_amd64](https://github.com/txthinking/mr2/releases/download/v20190518/mr2_darwin_amd64) | MacOS | amd64 |
+| [mr2_windows_amd64.exe](https://github.com/txthinking/mr2/releases/download/v20190518/mr2_windows_amd64.exe) | Windows | amd64 |
 
-See [releases](https://github.com/txthinking/mr2/releases) for other platforms. Or `go get github.com/txthinking/mr2`.
+See [releases](https://github.com/txthinking/mr2/releases) for other platforms. Or `go get github.com/txthinking/mr2/cli/mr2`.
 
 ### Server
 

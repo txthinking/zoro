@@ -12,7 +12,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-package main
+package mr2
 
 import (
 	"encoding/binary"
@@ -59,6 +59,9 @@ func NewTCPServer(s *Server, c *net.TCPConn) (*TCPServer, error) {
 	h := &TCPHello{}
 	if err := proto.Unmarshal(b, h); err != nil {
 		return nil, err
+	}
+	if h.Port == 0 {
+		return nil, errors.New(c.RemoteAddr().String() + " missed port")
 	}
 	if len(s.PortCkv) == 0 {
 		tmp, err := s.Ckv.Decrypt(h.Key, "Mr.2", 3*60)
@@ -140,19 +143,20 @@ func (s *TCPServer) Accept() {
 			}
 			return
 		}
-		if s.TCPTimeout != 0 {
-			if err := c1.SetKeepAlivePeriod(time.Duration(s.TCPTimeout) * time.Second); err != nil {
-				continue
-			}
-		}
 		go func(c1 *net.TCPConn) {
-			s.Cache.Set(c1.RemoteAddr().String(), c1, cache.DefaultExpiration)
-			defer s.Cache.Delete(c1.RemoteAddr().String())
+			defer c1.Close()
+			if s.TCPTimeout != 0 {
+				if err := c1.SetKeepAlivePeriod(time.Duration(s.TCPTimeout) * time.Second); err != nil {
+					return
+				}
+			}
 			if s.TCPDeadline != 0 {
 				if err := c1.SetDeadline(time.Now().Add(time.Duration(s.TCPDeadline) * time.Second)); err != nil {
 					return
 				}
 			}
+			s.Cache.Set(c1.RemoteAddr().String(), c1, cache.DefaultExpiration)
+			defer s.Cache.Delete(c1.RemoteAddr().String())
 			defer func() {
 				p := &TCPPacket{
 					Address: c1.RemoteAddr().String(),

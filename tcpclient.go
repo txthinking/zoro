@@ -12,7 +12,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-package main
+package mr2
 
 import (
 	"encoding/binary"
@@ -56,6 +56,7 @@ func NewTCPClient(c *Client) (*TCPClient, error) {
 		return nil, err
 	}
 	p := &TCPHello{
+		Domain:      c.ServerDomain,
 		Port:        c.ServerPort,
 		TCPTimeout:  c.TCPTimeout,
 		TCPDeadline: c.TCPDeadline,

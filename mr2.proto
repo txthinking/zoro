@@ -14,13 +14,14 @@
 
 syntax = "proto3";
 
-option go_package = "main";
+option go_package = "mr2";
 
 message TCPHello{
     int64 Port = 1;
     int64 TCPTimeout = 2;
     int64 TCPDeadline = 3;
     string Key = 4;
+    string Domain = 5;
 }
 
 message PingPong{

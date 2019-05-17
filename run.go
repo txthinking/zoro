@@ -12,7 +12,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-package main
+package mr2
 
 // RunServer .
 func RunServer(address, password string, portPassword []string) error {
@@ -24,7 +24,7 @@ func RunServer(address, password string, portPassword []string) error {
 }
 
 // RunClient .
-func RunClient(server, password string, serverPort int64, clientServer string, tcpTimeout, tcpDeadline, udpDeadline int64) error {
-	c := NewClient(server, password, serverPort, clientServer, tcpTimeout, tcpDeadline, udpDeadline)
+func RunClient(server, password string, serverPort int64, serverDomain, clientServer string, tcpTimeout, tcpDeadline, udpDeadline int64) error {
+	c := NewClient(server, password, serverPort, serverDomain, clientServer, tcpTimeout, tcpDeadline, udpDeadline)
 	return c.Run()
 }

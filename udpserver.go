@@ -12,7 +12,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-package main
+package mr2
 
 import (
 	"errors"
@@ -44,6 +44,10 @@ func NewUDPServer(s *Server, p *UDPPacket, addr *net.UDPAddr) (*UDPServer, error
 		if _, err := s.UDPConn.WriteToUDP(b, addr); err != nil {
 			log.Println(err)
 		}
+	}
+	if p.Port == 0 {
+		bye(errors.New("Missed port"))
+		return nil, errors.New(addr.String() + " missed port")
 	}
 	if len(s.PortCkv) == 0 {
 		tmp, err := s.Ckv.Decrypt(p.Key, "Mr.2", 3*60)
