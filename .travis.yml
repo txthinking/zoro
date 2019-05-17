@@ -5,4 +5,4 @@ install:
     - go get -t -v .
 script:
     - go test -v .
-    - go build .
+    - cd cli/mr2 && go get -t -v . && go build .
