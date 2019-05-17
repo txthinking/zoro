@@ -15,9 +15,7 @@
 package main
 
 import (
-	"fmt"
 	"log"
-	"net"
 	"net/http"
 	_ "net/http/pprof"
 	"os"
@@ -151,12 +149,6 @@ func main() {
 					}()
 					cs = "localhost:" + strconv.FormatInt(c.Int64("clientPort"), 10)
 				}
-				h, _, err := net.SplitHostPort(c.String("server"))
-				if err != nil {
-					return err
-				}
-				s := net.JoinHostPort(h, strconv.FormatInt(c.Int64("serverPort"), 10))
-				fmt.Println(s)
 				return mr2.RunClient(c.String("server"), c.String("password"), c.Int64("serverPort"), c.String("serverDomain"), cs, c.Int64("tcpTimeout"), c.Int64("tcpDeadline"), c.Int64("udpDeadline"))
 			},
 		},
