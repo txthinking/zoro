@@ -115,6 +115,9 @@ func (s *Server) TCPHandle(c *net.TCPConn) error {
 	if err != nil {
 		return err
 	}
+	if t == nil {
+		return nil
+	}
 	if err := t.ListenAndServe(); err != nil {
 		return err
 	}
@@ -148,7 +151,7 @@ func (s *Server) RunUDPServer() error {
 func (s *Server) UDPHandle(addr *net.UDPAddr, b []byte) error {
 	p := &UDPPacket{}
 	if err := proto.Unmarshal(b, p); err != nil {
-		return err
+		return nil
 	}
 	if p.Address == "" {
 		u, err := NewUDPServer(s, p, addr)

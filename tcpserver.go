@@ -39,26 +39,26 @@ type TCPServer struct {
 	Error       chan error
 }
 
-// NewTCPServer .
+// NewTCPServer. Some cases return nil, nil
 func NewTCPServer(s *Server, c *net.TCPConn) (*TCPServer, error) {
 	if err := c.SetKeepAlivePeriod(time.Duration(60) * time.Second); err != nil {
-		return nil, err
+		return nil, nil
 	}
 	if err := c.SetDeadline(time.Now().Add(time.Duration(10) * time.Second)); err != nil {
-		return nil, err
+		return nil, nil
 	}
 	b := make([]byte, 2)
 	if _, err := io.ReadFull(c, b); err != nil {
-		return nil, err
+		return nil, nil
 	}
 	i := int(binary.BigEndian.Uint16(b))
 	b = make([]byte, i)
 	if _, err := io.ReadFull(c, b); err != nil {
-		return nil, err
+		return nil, nil
 	}
 	h := &TCPHello{}
 	if err := proto.Unmarshal(b, h); err != nil {
-		return nil, err
+		return nil, nil
 	}
 	if h.Port == 0 {
 		return nil, errors.New(c.RemoteAddr().String() + " missed port")
