@@ -21,9 +21,9 @@ Mr.2 可以帮助你将内网服务器暴露在外网. 支持 TCP/UDP 协议, �
 
 | 下载 | 系统 | 架构 |
 | --- | --- | --- |
-| [mr2](https://github.com/txthinking/mr2/releases/download/v20190518/mr2) | Linux | amd64 |
-| [mr2_darwin_amd64](https://github.com/txthinking/mr2/releases/download/v20190518/mr2_darwin_amd64) | MacOS | amd64 |
-| [mr2_windows_amd64.exe](https://github.com/txthinking/mr2/releases/download/v20190518/mr2_windows_amd64.exe) | Windows | amd64 |
+| [mr2](https://github.com/txthinking/mr2/releases/download/v20190519/mr2) | Linux | amd64 |
+| [mr2_darwin_amd64](https://github.com/txthinking/mr2/releases/download/v20190519/mr2_darwin_amd64) | MacOS | amd64 |
+| [mr2_windows_amd64.exe](https://github.com/txthinking/mr2/releases/download/v20190519/mr2_windows_amd64.exe) | Windows | amd64 |
 
 更多平台下载请查看 [releases](https://github.com/txthinking/mr2/releases). 或`go get github.com/txthinking/mr2/cli/mr2`.
 

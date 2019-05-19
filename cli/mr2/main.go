@@ -31,7 +31,7 @@ var debugListen string
 func main() {
 	app := cli.NewApp()
 	app.Name = "Mr.2"
-	app.Version = "20190518"
+	app.Version = "20190519"
 	app.Usage = "Expose local server to external network"
 	app.Author = "Cloud"
 	app.Email = "cloud@txthinking.com"
