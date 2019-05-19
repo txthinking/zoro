@@ -190,7 +190,6 @@ func (c *TCPClient) Read() {
 				c1 := i.(*net.TCPConn)
 				c.Cache.Delete(p.Address)
 				c1.Close()
-				return
 			}
 			continue
 		}
@@ -204,40 +203,41 @@ func (c *TCPClient) Read() {
 				}
 				return
 			}
-			go func(p *TCPPacket) {
-				i, ok := c.Cache.Get(p.Address)
-				if ok {
-					c1 := i.(*net.TCPConn)
-					if _, err := c1.Write(p.Data); err != nil {
-						return
-					}
-					return
-				}
-				tmp, err := Dial.Dial("tcp", c.Client.ClientServer)
-				if err != nil {
-					log.Println(err)
-					return
-				}
-				c1 := tmp.(*net.TCPConn)
-				defer c1.Close()
-				c.Cache.Set(p.Address, c1, cache.DefaultExpiration)
-				defer c.Cache.Delete(p.Address)
-				if c.Client.TCPTimeout != 0 {
-					if err := c1.SetKeepAlivePeriod(time.Duration(c.Client.TCPTimeout) * time.Second); err != nil {
-						log.Println(err)
-						return
-					}
-				}
-				if c.Client.TCPDeadline != 0 {
-					if err := c1.SetDeadline(time.Now().Add(time.Duration(c.Client.TCPDeadline) * time.Second)); err != nil {
-						log.Println(err)
-						return
-					}
-				}
+			i, ok := c.Cache.Get(p.Address)
+			if ok {
+				c1 := i.(*net.TCPConn)
 				if _, err := c1.Write(p.Data); err != nil {
-					log.Println(err)
-					return
+					continue
 				}
+				continue
+			}
+			tmp, err := Dial.Dial("tcp", c.Client.ClientServer)
+			if err != nil {
+				log.Println(err)
+				continue
+			}
+			c1 := tmp.(*net.TCPConn)
+			if c.Client.TCPTimeout != 0 {
+				if err := c1.SetKeepAlivePeriod(time.Duration(c.Client.TCPTimeout) * time.Second); err != nil {
+					log.Println(err)
+					c1.Close()
+					continue
+				}
+			}
+			if c.Client.TCPDeadline != 0 {
+				if err := c1.SetDeadline(time.Now().Add(time.Duration(c.Client.TCPDeadline) * time.Second)); err != nil {
+					log.Println(err)
+					c1.Close()
+					continue
+				}
+			}
+			if _, err := c1.Write(p.Data); err != nil {
+				log.Println(err)
+				c1.Close()
+				continue
+			}
+			c.Cache.Set(p.Address, c1, cache.DefaultExpiration)
+			go func(p *TCPPacket, c1 *net.TCPConn) {
 				var bf [1024 * 2]byte
 				for {
 					if c.Client.TCPDeadline != 0 {
@@ -270,7 +270,7 @@ func (c *TCPClient) Read() {
 					case c.Data <- append(append([]byte{0x01}, bb...), b...):
 					}
 				}
-			}(p)
+			}(p, c1)
 		}
 	}
 }

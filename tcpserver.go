@@ -143,19 +143,21 @@ func (s *TCPServer) Accept() {
 			}
 			return
 		}
+		if s.TCPTimeout != 0 {
+			if err := c1.SetKeepAlivePeriod(time.Duration(s.TCPTimeout) * time.Second); err != nil {
+				c1.Close()
+				continue
+			}
+		}
+		if s.TCPDeadline != 0 {
+			if err := c1.SetDeadline(time.Now().Add(time.Duration(s.TCPDeadline) * time.Second)); err != nil {
+				c1.Close()
+				continue
+			}
+		}
+		s.Cache.Set(c1.RemoteAddr().String(), c1, cache.DefaultExpiration)
 		go func(c1 *net.TCPConn) {
 			defer c1.Close()
-			if s.TCPTimeout != 0 {
-				if err := c1.SetKeepAlivePeriod(time.Duration(s.TCPTimeout) * time.Second); err != nil {
-					return
-				}
-			}
-			if s.TCPDeadline != 0 {
-				if err := c1.SetDeadline(time.Now().Add(time.Duration(s.TCPDeadline) * time.Second)); err != nil {
-					return
-				}
-			}
-			s.Cache.Set(c1.RemoteAddr().String(), c1, cache.DefaultExpiration)
 			defer s.Cache.Delete(c1.RemoteAddr().String())
 			defer func() {
 				p := &TCPPacket{

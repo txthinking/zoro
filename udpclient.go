@@ -168,26 +168,28 @@ func (c *UDPClient) Read() {
 			}
 			continue
 		}
-		go func(p *UDPPacket) {
-			tmp, err := Dial.Dial("udp", c.Client.ClientServer)
-			if err != nil {
+		tmp, err := Dial.Dial("udp", c.Client.ClientServer)
+		if err != nil {
+			log.Println(err)
+			continue
+		}
+		c1 := tmp.(*net.UDPConn)
+		if c.Client.UDPDeadline != 0 {
+			if err := c1.SetDeadline(time.Now().Add(time.Duration(c.Client.UDPDeadline) * time.Second)); err != nil {
 				log.Println(err)
-				return
+				c1.Close()
+				continue
 			}
-			c1 := tmp.(*net.UDPConn)
+		}
+		if _, err := c1.Write(p.Data); err != nil {
+			log.Println(err)
+			c1.Close()
+			return
+		}
+		c.Cache.Set(p.Address, c1, cache.DefaultExpiration)
+		go func(p *UDPPacket, c1 *net.UDPConn) {
 			defer c1.Close()
-			if c.Client.UDPDeadline != 0 {
-				if err := c1.SetDeadline(time.Now().Add(time.Duration(c.Client.UDPDeadline) * time.Second)); err != nil {
-					log.Println(err)
-					return
-				}
-			}
-			c.Cache.Set(p.Address, c1, cache.DefaultExpiration)
 			defer c.Cache.Delete(p.Address)
-			if _, err := c1.Write(p.Data); err != nil {
-				log.Println(err)
-				return
-			}
 			var b [65536]byte
 			for {
 				if c.Client.UDPDeadline != 0 {
@@ -219,6 +221,6 @@ func (c *UDPClient) Read() {
 				case c.Data <- b:
 				}
 			}
-		}(p)
+		}(p, c1)
 	}
 }
