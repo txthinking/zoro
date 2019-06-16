@@ -157,8 +157,6 @@ func (s *TCPServer) Accept() {
 		}
 		s.Cache.Set(c1.RemoteAddr().String(), c1, cache.DefaultExpiration)
 		go func(c1 *net.TCPConn) {
-			defer c1.Close()
-			defer s.Cache.Delete(c1.RemoteAddr().String())
 			defer func() {
 				p := &TCPPacket{
 					Address: c1.RemoteAddr().String(),
@@ -179,6 +177,8 @@ func (s *TCPServer) Accept() {
 					return
 				case s.Data <- append(append([]byte{0x02}, bb...), b...):
 				}
+				s.Cache.Delete(c1.RemoteAddr().String())
+				c1.Close()
 			}()
 			var bf [1024 * 2]byte
 			for {
@@ -292,6 +292,24 @@ func (s *TCPServer) Read() {
 			c1 := i.(*net.TCPConn)
 			if _, err := c1.Write(p.Data); err != nil {
 				continue
+			}
+			continue
+		}
+		if k == 0x02 {
+			p := &TCPPacket{}
+			if err := proto.Unmarshal(b, p); err != nil {
+				select {
+				case <-s.Done:
+					return
+				case s.Error <- err:
+				}
+				return
+			}
+			i, ok := s.Cache.Get(p.Address)
+			if ok {
+				c1 := i.(*net.TCPConn)
+				s.Cache.Delete(p.Address)
+				c1.Close()
 			}
 			continue
 		}

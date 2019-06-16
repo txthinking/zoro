@@ -143,6 +143,33 @@ func (c *TCPClient) Ping() {
 
 // Read data from server.
 func (c *TCPClient) Read() {
+	bye := func(address string) {
+		p := &TCPPacket{
+			Address: address,
+		}
+		b, err := proto.Marshal(p)
+		if err != nil {
+			select {
+			case <-c.Done:
+				return
+			case c.Error <- err:
+			}
+			return
+		}
+		bb := make([]byte, 2)
+		binary.BigEndian.PutUint16(bb, uint16(len(b)))
+		select {
+		case <-c.Done:
+			return
+		case c.Data <- append(append([]byte{0x02}, bb...), b...):
+		}
+		i, ok := c.Cache.Get(p.Address)
+		if ok {
+			c1 := i.(*net.TCPConn)
+			c.Cache.Delete(p.Address)
+			c1.Close()
+		}
+	}
 	for {
 		if err := c.TCPConn.SetDeadline(time.Now().Add(time.Duration(10) * time.Second)); err != nil {
 			select {
@@ -207,19 +234,21 @@ func (c *TCPClient) Read() {
 			if ok {
 				c1 := i.(*net.TCPConn)
 				if _, err := c1.Write(p.Data); err != nil {
+					bye(p.Address)
 					continue
 				}
 				continue
 			}
 			tmp, err := Dial.Dial("tcp", c.Client.ClientServer)
 			if err != nil {
-				log.Println(err)
+				bye(p.Address)
 				continue
 			}
 			c1 := tmp.(*net.TCPConn)
 			if c.Client.TCPTimeout != 0 {
 				if err := c1.SetKeepAlivePeriod(time.Duration(c.Client.TCPTimeout) * time.Second); err != nil {
 					log.Println(err)
+					bye(p.Address)
 					c1.Close()
 					continue
 				}
@@ -227,17 +256,20 @@ func (c *TCPClient) Read() {
 			if c.Client.TCPDeadline != 0 {
 				if err := c1.SetDeadline(time.Now().Add(time.Duration(c.Client.TCPDeadline) * time.Second)); err != nil {
 					log.Println(err)
+					bye(p.Address)
 					c1.Close()
 					continue
 				}
 			}
 			if _, err := c1.Write(p.Data); err != nil {
 				log.Println(err)
+				bye(p.Address)
 				c1.Close()
 				continue
 			}
 			c.Cache.Set(p.Address, c1, cache.DefaultExpiration)
 			go func(p *TCPPacket, c1 *net.TCPConn) {
+				defer bye(p.Address)
 				var bf [1024 * 2]byte
 				for {
 					if c.Client.TCPDeadline != 0 {
