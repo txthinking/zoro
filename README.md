@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/txthinking/mr2.svg?branch=master)](https://travis-ci.org/txthinking/mr2) [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
 [![ZH](https://img.shields.io/badge/%E4%B8%AD%E6%96%87-README-blue.svg)](https://github.com/txthinking/mr2/blob/master/README_zh.md)
+[![Financial Contributors on Open Collective](https://opencollective.com/txthinking-mr2/all/badge.svg?label=financial+contributors)](https://opencollective.com/txthinking-mr2) 
 
 ### Table of Contents
 
@@ -98,6 +99,36 @@ A HTTP server in external network is: server_address:5678
 ## Contributing
 
 Please read [CONTRIBUTING.md](https://github.com/txthinking/mr2/blob/master/.github/CONTRIBUTING.md) first
+
+## Contributors
+
+### Code Contributors
+
+This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+<a href="https://github.com/txthinking/mr2/graphs/contributors"><img src="https://opencollective.com/txthinking-mr2/contributors.svg?width=890&button=false" /></a>
+
+### Financial Contributors
+
+Become a financial contributor and help us sustain our community. [[Contribute](https://opencollective.com/txthinking-mr2/contribute)]
+
+#### Individuals
+
+<a href="https://opencollective.com/txthinking-mr2"><img src="https://opencollective.com/txthinking-mr2/individuals.svg?width=890"></a>
+
+#### Organizations
+
+Support this project with your organization. Your logo will show up here with a link to your website. [[Contribute](https://opencollective.com/txthinking-mr2/contribute)]
+
+<a href="https://opencollective.com/txthinking-mr2/organization/0/website"><img src="https://opencollective.com/txthinking-mr2/organization/0/avatar.svg"></a>
+<a href="https://opencollective.com/txthinking-mr2/organization/1/website"><img src="https://opencollective.com/txthinking-mr2/organization/1/avatar.svg"></a>
+<a href="https://opencollective.com/txthinking-mr2/organization/2/website"><img src="https://opencollective.com/txthinking-mr2/organization/2/avatar.svg"></a>
+<a href="https://opencollective.com/txthinking-mr2/organization/3/website"><img src="https://opencollective.com/txthinking-mr2/organization/3/avatar.svg"></a>
+<a href="https://opencollective.com/txthinking-mr2/organization/4/website"><img src="https://opencollective.com/txthinking-mr2/organization/4/avatar.svg"></a>
+<a href="https://opencollective.com/txthinking-mr2/organization/5/website"><img src="https://opencollective.com/txthinking-mr2/organization/5/avatar.svg"></a>
+<a href="https://opencollective.com/txthinking-mr2/organization/6/website"><img src="https://opencollective.com/txthinking-mr2/organization/6/avatar.svg"></a>
+<a href="https://opencollective.com/txthinking-mr2/organization/7/website"><img src="https://opencollective.com/txthinking-mr2/organization/7/avatar.svg"></a>
+<a href="https://opencollective.com/txthinking-mr2/organization/8/website"><img src="https://opencollective.com/txthinking-mr2/organization/8/avatar.svg"></a>
+<a href="https://opencollective.com/txthinking-mr2/organization/9/website"><img src="https://opencollective.com/txthinking-mr2/organization/9/avatar.svg"></a>
 
 ## License
 
