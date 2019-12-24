@@ -31,6 +31,8 @@ type Client struct {
 	UDPDeadline  int64
 	UDPConn      *net.UDPConn
 	Ckv          *x.CryptKV
+	TCPClient    *TCPClient
+	UDPClient    *UDPClient
 }
 
 // NewClient .
@@ -51,24 +53,36 @@ func NewClient(server, password string, serverPort int64, serverDomain, clientSe
 }
 
 // Run .
-func (c *Client) Run() error {
-	t, err := NewTCPClient(c)
+func (c *Client) ListenAndServe() error {
+	var err error
+	c.TCPClient, err = NewTCPClient(c)
 	if err != nil {
 		return err
 	}
 	if c.ServerDomain != "" {
-		return t.Run()
+		return c.TCPClient.Run()
 	}
-	u, err := NewUDPClient(c)
+	c.UDPClient, err = NewUDPClient(c)
 	if err != nil {
 		return err
 	}
 	errch := make(chan error)
 	go func() {
-		errch <- t.Run()
+		errch <- c.TCPClient.Run()
 	}()
 	go func() {
-		errch <- u.Run()
+		errch <- c.UDPClient.Run()
 	}()
 	return <-errch
+}
+
+// Shutdown server.
+func (c *Client) Shutdown() error {
+	if c.TCPClient != nil {
+		c.TCPClient.Stop()
+	}
+	if c.UDPClient != nil {
+		c.UDPClient.Stop()
+	}
+	return nil
 }

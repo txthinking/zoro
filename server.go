@@ -175,3 +175,18 @@ func (s *Server) UDPHandle(addr *net.UDPAddr, b []byte) error {
 	}
 	return nil
 }
+
+// Shutdown server.
+func (s *Server) Shutdown() error {
+	var err, err1 error
+	if s.TCPListen != nil {
+		err = s.TCPListen.Close()
+	}
+	if s.UDPConn != nil {
+		err1 = s.UDPConn.Close()
+	}
+	if err != nil {
+		return err
+	}
+	return err1
+}
