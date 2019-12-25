@@ -83,14 +83,7 @@ See [releases](https://github.com/txthinking/mr2/releases) for other platforms. 
 
 Please read [CONTRIBUTING.md](https://github.com/txthinking/mr2/blob/master/.github/CONTRIBUTING.md) first
 
-## Contributors
-
-### Code Contributors
-
-This project exists thanks to all the people who contribute. \[[Contribute](CONTRIBUTING.md)].
-<a href="https://github.com/txthinking/mr2/graphs/contributors"><img src="https://opencollective.com/txthinking-mr2/contributors.svg?width=890&button=false" /></a>
-
-### Financial Contributors
+## Financial Contributors
 
 Become a financial contributor and help us sustain our community. \[[Contribute](https://opencollective.com/txthinking-mr2/contribute)]
 
