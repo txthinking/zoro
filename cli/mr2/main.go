@@ -33,7 +33,7 @@ var debugListen string
 func main() {
 	app := cli.NewApp()
 	app.Name = "Mr.2"
-	app.Version = "20200101"
+	app.Version = "20200102"
 	app.Usage = "Expose local server to external network"
 	app.Flags = []cli.Flag{
 		&cli.BoolFlag{
@@ -66,8 +66,9 @@ func main() {
 					Usage:   "Password",
 				},
 				&cli.StringSliceFlag{
-					Name:  "portPassword, P",
-					Usage: "Only allow this port and password, like '1000 password'. If you specify this parameter, --password will be ignored",
+					Name:    "portPassword",
+					Aliases: []string{"P"},
+					Usage:   "Only allow this port and password, like '1000 password'. If you specify this parameter, --password will be ignored",
 				},
 			},
 			Action: func(c *cli.Context) error {
