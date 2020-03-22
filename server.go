@@ -23,7 +23,7 @@ import (
 
 	"github.com/gogo/protobuf/proto"
 	cache "github.com/patrickmn/go-cache"
-	"github.com/txthinking/x"
+	"github.com/txthinking/encrypt"
 )
 
 // Server .
@@ -33,13 +33,13 @@ type Server struct {
 	TCPListen *net.TCPListener
 	UDPConn   *net.UDPConn
 	Cache     *cache.Cache
-	Ckv       *x.CryptKV
-	PortCkv   map[int64]*x.CryptKV
+	Ckv       *encrypt.KV
+	PortCkv   map[int64]*encrypt.KV
 }
 
 // NewServer .
 func NewServer(addr, password string, portPassword []string) (*Server, error) {
-	pc := make(map[int64]*x.CryptKV)
+	pc := make(map[int64]*encrypt.KV)
 	for _, v := range portPassword {
 		l := strings.Split(v, " ")
 		if len(l) != 2 {
@@ -49,7 +49,7 @@ func NewServer(addr, password string, portPassword []string) (*Server, error) {
 		if err != nil {
 			return nil, err
 		}
-		ckv := &x.CryptKV{
+		ckv := &encrypt.KV{
 			AESKey: []byte(l[1]),
 		}
 		pc[port] = ckv
@@ -66,7 +66,7 @@ func NewServer(addr, password string, portPassword []string) (*Server, error) {
 		TCPAddr: taddr,
 		UDPAddr: uaddr,
 		Cache:   cache.New(cache.NoExpiration, cache.NoExpiration),
-		Ckv: &x.CryptKV{
+		Ckv: &encrypt.KV{
 			AESKey: []byte(password),
 		},
 		PortCkv: pc,

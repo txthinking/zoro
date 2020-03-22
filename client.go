@@ -17,7 +17,7 @@ package mr2
 import (
 	"net"
 
-	"github.com/txthinking/x"
+	"github.com/txthinking/encrypt"
 )
 
 // Client .
@@ -30,7 +30,7 @@ type Client struct {
 	TCPTimeout   int64
 	UDPDeadline  int64
 	UDPConn      *net.UDPConn
-	Ckv          *x.CryptKV
+	Ckv          *encrypt.KV
 	TCPClient    *TCPClient
 	UDPClient    *UDPClient
 }
@@ -45,7 +45,7 @@ func NewClient(server, password string, serverPort int64, serverDomain, clientSe
 		TCPTimeout:   tcpTimeout,
 		TCPDeadline:  tcpDeadline,
 		UDPDeadline:  udpDeadline,
-		Ckv: &x.CryptKV{
+		Ckv: &encrypt.KV{
 			AESKey: []byte(password),
 		},
 	}
