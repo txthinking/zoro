@@ -9,7 +9,7 @@ Mr.2 can help you expose local server to external network. Support both TCP/UDP,
 ### Install via [nami](https://github.com/txthinking/nami)
 
 ```
-$ nami install github.com/txthinking/joker
+$ nami install github.com/txthinking/mr2
 ```
 
 or download from [releases](https://github.com/txthinking/mr2/releases) or `go get github.com/txthinking/mr2/cli/mr2`.
