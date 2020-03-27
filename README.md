@@ -2,30 +2,17 @@
 
 [![Build Status](https://travis-ci.org/txthinking/mr2.svg?branch=master)](https://travis-ci.org/txthinking/mr2) [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
 
-### Table of Contents
-
--   [What is Mr.2](#what-is-mr2)
--   [Download](#download)
--   [**Server**](#server)
--   [**Client**](#client)
--   [Example](#example)
--   [Contributing](#contributing)
--   [License](#license)
-
 ## What is Mr.2
 
-Mr.2 can help you expose local server to external network. Support both TCP/UDP, of course support HTTP.<br/>
-Keep it **simple**, **stupid**.
+Mr.2 can help you expose local server to external network. Support both TCP/UDP, of course support HTTP. Keep it **simple**, **stupid**.
 
-## Download
+### Install via [nami](https://github.com/txthinking/nami)
 
-| Download                                                                                                     | OS      | Arch  |
-| ------------------------------------------------------------------------------------------------------------ | ------- | ----- |
-| [mr2](https://github.com/txthinking/mr2/releases/download/v20200102/mr2)                                     | Linux   | amd64 |
-| [mr2_darwin_amd64](https://github.com/txthinking/mr2/releases/download/v20200102/mr2_darwin_amd64)           | MacOS   | amd64 |
-| [mr2_windows_amd64.exe](https://github.com/txthinking/mr2/releases/download/v20200102/mr2_windows_amd64.exe) | Windows | amd64 |
+```
+$ nami install github.com/txthinking/joker
+```
 
-See [releases](https://github.com/txthinking/mr2/releases) for other platforms. Or `go get github.com/txthinking/mr2/cli/mr2`.
+or download from [releases](https://github.com/txthinking/mr2/releases) or `go get github.com/txthinking/mr2/cli/mr2`.
 
 ### Server
 
