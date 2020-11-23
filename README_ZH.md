@@ -1,22 +1,22 @@
 # Mr.2
 
-[中文](README_ZH.md)
+[English](README.md)
 
 [![Build Status](https://travis-ci.org/txthinking/mr2.svg?branch=master)](https://travis-ci.org/txthinking/mr2) [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
-[![Donate](https://img.shields.io/badge/Support-Donate-ff69b4.svg)](https://www.txthinking.com/opensource-support.html)
-[![Slack](https://img.shields.io/badge/Join-Slack-ff69b4.svg)](https://docs.google.com/forms/d/e/1FAIpQLSdzMwPtDue3QoezXSKfhW88BXp57wkbDXnLaqokJqLeSWP9vQ/viewform)
+[![捐赠](https://img.shields.io/badge/%E6%94%AF%E6%8C%81-%E6%8D%90%E8%B5%A0-ff69b4.svg)](https://www.txthinking.com/opensource-support.html)
+[![交流群](https://img.shields.io/badge/%E7%94%B3%E8%AF%B7%E5%8A%A0%E5%85%A5-%E4%BA%A4%E6%B5%81%E7%BE%A4-ff69b4.svg)](https://docs.google.com/forms/d/e/1FAIpQLSdzMwPtDue3QoezXSKfhW88BXp57wkbDXnLaqokJqLeSWP9vQ/viewform)
 
-## What is Mr.2
+## 什么是 Mr.2
 
-Mr.2 can help you expose local server to external network. Support both TCP/UDP, of course support HTTP. Keep it **simple**, **stupid**.
+Mr.2 帮助你将本地端口暴露在外网.支持TCP/UDP, 当然也支持HTTP. Keep it **simple**, **stupid**.
 
-### Install via [nami](https://github.com/txthinking/nami)
+### 用 [nami](https://github.com/txthinking/nami) 安装
 
 ```
 $ nami install github.com/txthinking/mr2
 ```
 
-or download from [releases](https://github.com/txthinking/mr2/releases)
+或直接下载二进制命令文件 [releases](https://github.com/txthinking/mr2/releases)
 
 ### Server
 
@@ -33,7 +33,7 @@ or download from [releases](https://github.com/txthinking/mr2/releases)
     # Local web root is /path/to/www, expect to expose: server_address:5678
     $ mr2 client -s server_address:port -p password -P 5678 --clientDirectory /path/to/www
 
-### Example
+### 举例
 
 #### Access local HTTP server
 
@@ -69,10 +69,10 @@ or download from [releases](https://github.com/txthinking/mr2/releases)
 
 ...
 
-## Contributing
+## 贡献
 
-Please read [CONTRIBUTING.md](https://github.com/txthinking/mr2/blob/master/.github/CONTRIBUTING.md) first
+请先阅读 [CONTRIBUTING.md](https://github.com/txthinking/mr2/blob/master/.github/CONTRIBUTING.md)
 
-## License
+## 开源协议
 
-Licensed under The GPLv3 License
+基于 GPLv3 协议开源
