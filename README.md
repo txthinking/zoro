@@ -59,7 +59,7 @@ $ mr2 client -s 1.2.3.4:9999 -p password -P 8888 -c 127.0.0.1:8080
 
 Then access `1.2.3.4:8888` equals to access `127.0.0.1:8080`
 
-### Example of `server` and `client` 
+## Example of `server` and `client` 
 
 #### Access local HTTP server
 
@@ -78,7 +78,7 @@ $ mr2 client -s 1.2.3.4:9999 -p password -P 8888 -c 127.0.0.1:22
 Then access `1.2.3.4:8888` equals to access `127.0.0.1:22`
 
 ```
-$ ssh -oPort=8888 localuser@1.2.3.4
+$ ssh -oPort=8888 yourlocaluser@1.2.3.4
 ```
 
 #### Access local DNS server
@@ -103,9 +103,15 @@ Then access `1.2.3.4:8888` equals to access `127.0.0.1:8080`, web root is /path/
 
 #### Any TCP-based/UDP-based ideas you think of
 
+```
+...
+```
+
+## `httpsserver` and `httpsclient`
+
 ### `$ mr2 httpsserver` on remote server
 
-On remote server, assume your domain is `domain.com`, cert of `*.domain.com` is `./domain_com_cert.pem` and `./domain_com_cert_key.pem`, want https listen on `443`
+Assume your domain is `domain.com`, cert of `*.domain.com` is `./domain_com_cert.pem` and `./domain_com_cert_key.pem`, want https listen on `443`
 
 ```
 $ mr2 httpsserver -l :9999 -p password --domain domain.com --cert ./domain_com_cert.pem --certKey ./domain_com_cert_key.pem --tlsPort 443
@@ -116,7 +122,7 @@ $ mr2 httpsserver -l :9999 -p password --domain domain.com --cert ./domain_com_c
 
 ### `$ mr2 httpsclient` on local
 
-On client, assume your remote mr2 httpsserver is `1.2.3.4:9999`, your local HTTP 1.1 server is `127.0.0.1:8080`, want the remote server to open subdomain `hey`
+Assume your remote mr2 httpsserver is `1.2.3.4:9999`, your local HTTP 1.1 server is `127.0.0.1:8080`, want the remote server to open subdomain `hey`
 
 ```
 $ mr2 httpsclient -s 1.2.3.4:9999 -p password --serverSubdomain hey -c 127.0.0.1:8080
