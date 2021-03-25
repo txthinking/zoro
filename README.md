@@ -126,6 +126,10 @@ $ mr2 httpsclient -s 1.2.3.4:9999 -p password --serverSubdomain hey -c 127.0.0.1
 
 Then access `https://hey.domain.com:443` equals to access `http://127.0.0.1:8080`
 
+## About UDP
+
+In some cases of multi-layer NAT, UDP may fail. I passed the test when I connected directly to the Wi-Fi provided by the ISP.
+
 ## Author
 
 A project by [txthinking](https://www.txthinking.com)

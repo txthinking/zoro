@@ -6,7 +6,7 @@
 [![捐赠](https://img.shields.io/badge/%E6%94%AF%E6%8C%81-%E6%8D%90%E8%B5%A0-ff69b4.svg)](https://www.txthinking.com/opensource-support.html)
 [![交流群](https://img.shields.io/badge/%E7%94%B3%E8%AF%B7%E5%8A%A0%E5%85%A5-%E4%BA%A4%E6%B5%81%E7%BE%A4-ff69b4.svg)](https://docs.google.com/forms/d/e/1FAIpQLSdzMwPtDue3QoezXSKfhW88BXp57wkbDXnLaqokJqLeSWP9vQ/viewform)
 
-mr2 帮助你将本地端口暴露在外网.支持TCP/UDP, 当然也支持HTTP. Keep it **simple**, **stupid**.
+mr2 帮助你将本地端口暴露在外网.**支持TCP/UDP**, 当然也支持HTTP. Keep it **simple**, **stupid**.
 
 ### 安装 via [nami](https://github.com/txthinking/nami)
 
@@ -125,6 +125,10 @@ $ mr2 httpsclient -s 1.2.3.4:9999 -p password --serverSubdomain hey -c 127.0.0.1
 > 更多参数: $ mr2 httpsclient -h
 
 现在访问 `https://hey.domain.com:443` 就等于 `http://127.0.0.1:8080`
+
+## 关于UDP
+
+在一些多层NAT情况下, 可能UDP会失败. 我在本地直接连接ISP提供的Wi-Fi的情况测试通过.
 
 ## 作者
 
