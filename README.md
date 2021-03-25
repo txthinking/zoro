@@ -38,18 +38,17 @@ GLOBAL OPTIONS:
    --version, -v  print the version (default: false)
 ```
 
-### `$ mr2 server` on remote server
+## `server` and `client`
+
+On remote server. Note that the firewall opens TCP and UDP on all relevant ports
 
 ```
 $ mr2 server -l :9999 -p password
 ```
 
-> More parameters: $ mr2 server -h<br/>
-> Note that the firewall opens TCP and UDP on all relevant ports
+> More parameters: $ mr2 server -h
 
-### `$ mr2 client` on local
-
-Assume your remote mr2 server is `1.2.3.4:9999`, your local server is `127.0.0.1:8080`, want the remote server to open port `8888`
+On local. Assume your remote mr2 server is `1.2.3.4:9999`, your local server is `127.0.0.1:8080`, want the remote server to open port `8888`
 
 ```
 $ mr2 client -s 1.2.3.4:9999 -p password -P 8888 -c 127.0.0.1:8080
@@ -109,20 +108,15 @@ Then access `1.2.3.4:8888` equals to access `127.0.0.1:8080`, web root is /path/
 
 ## `httpsserver` and `httpsclient`
 
-### `$ mr2 httpsserver` on remote server
-
-Assume your domain is `domain.com`, cert of `*.domain.com` is `./domain_com_cert.pem` and `./domain_com_cert_key.pem`, want https listen on `443`
+On remote server. Assume your domain is `domain.com`, cert of `*.domain.com` is `./domain_com_cert.pem` and `./domain_com_cert_key.pem`, want https listen on `443`. Note that the firewall opens TCP on all relevant ports
 
 ```
 $ mr2 httpsserver -l :9999 -p password --domain domain.com --cert ./domain_com_cert.pem --certKey ./domain_com_cert_key.pem --tlsPort 443
 ```
 
 > More parameters: $ mr2 httpsserver -h<br/>
-> Note that the firewall opens TCP on all relevant ports
 
-### `$ mr2 httpsclient` on local
-
-Assume your remote mr2 httpsserver is `1.2.3.4:9999`, your local HTTP 1.1 server is `127.0.0.1:8080`, want the remote server to open subdomain `hey`
+On local. Assume your remote mr2 httpsserver is `1.2.3.4:9999`, your local HTTP 1.1 server is `127.0.0.1:8080`, want the remote server to open subdomain `hey`
 
 ```
 $ mr2 httpsclient -s 1.2.3.4:9999 -p password --serverSubdomain hey -c 127.0.0.1:8080
