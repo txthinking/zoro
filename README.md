@@ -60,7 +60,7 @@ Then access `1.2.3.4:8888` equals to access `127.0.0.1:8080`
 
 ## Example of `server` and `client` 
 
-#### Access local HTTP server
+#### Expose local HTTP server
 
 ```
 $ mr2 client -s 1.2.3.4:9999 -p password -P 8888 -c 127.0.0.1:8080
@@ -68,7 +68,7 @@ $ mr2 client -s 1.2.3.4:9999 -p password -P 8888 -c 127.0.0.1:8080
 
 Then access `1.2.3.4:8888` equals to access `127.0.0.1:8080`
 
-#### SSH into local computer
+#### Expose local SSH
 
 ```
 $ mr2 client -s 1.2.3.4:9999 -p password -P 8888 -c 127.0.0.1:22
@@ -80,7 +80,7 @@ Then access `1.2.3.4:8888` equals to access `127.0.0.1:22`
 $ ssh -oPort=8888 yourlocaluser@1.2.3.4
 ```
 
-#### Access local DNS server
+#### Expose local DNS server
 
 ```
 $ mr2 client -s 1.2.3.4:9999 -p password -P 8888 -c 127.0.0.1:53
@@ -92,7 +92,7 @@ Then access `1.2.3.4:8888` equals to access `127.0.0.1:53`
 $ dig github.com @1.2.3.4 -p 8888
 ```
 
-#### Access your local directory via HTTP
+#### Expose local directory via HTTP
 
 ```
 $ mr2 client -s 1.2.3.4:9999 -p password -P 8888 --clientDirectory /path/to/www --clientPort 8080
@@ -100,7 +100,7 @@ $ mr2 client -s 1.2.3.4:9999 -p password -P 8888 --clientDirectory /path/to/www 
 
 Then access `1.2.3.4:8888` equals to access `127.0.0.1:8080`, web root is /path/to/www
 
-#### Any TCP-based/UDP-based ideas you think of
+#### Expose any TCP/UDP service
 
 ```
 ...
