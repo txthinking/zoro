@@ -1,4 +1,4 @@
-# Mr.2
+# mr2
 
 [中文](README_ZH.md)
 
@@ -6,9 +6,7 @@
 [![Donate](https://img.shields.io/badge/Support-Donate-ff69b4.svg)](https://www.txthinking.com/opensource-support.html)
 [![Slack](https://img.shields.io/badge/Join-Slack-ff69b4.svg)](https://docs.google.com/forms/d/e/1FAIpQLSdzMwPtDue3QoezXSKfhW88BXp57wkbDXnLaqokJqLeSWP9vQ/viewform)
 
-## What is Mr.2
-
-Mr.2 can help you expose local server to external network. Support both TCP/UDP, of course support HTTP. Keep it **simple**, **stupid**.
+mr2 can help you expose local server to external network. **Support both TCP/UDP**, of course support HTTP. Keep it **simple**, **stupid**.
 
 ### Install via [nami](https://github.com/txthinking/nami)
 
@@ -16,62 +14,121 @@ Mr.2 can help you expose local server to external network. Support both TCP/UDP,
 $ nami install github.com/txthinking/mr2
 ```
 
-or download from [releases](https://github.com/txthinking/mr2/releases)
+### Usage
 
-### Server
+```
+NAME:
+   mr2 - Expose local TCP and UDP server to external network
 
-    $ mr2 server -l :9999 -p password
+USAGE:
+   mr2 [global options] command [command options] [arguments...]
 
-    # Only allow partial ports, and set password on each port
-    $ mr2 server -l :9999 -P '5678 password' -P '6789 password1'
+VERSION:
+   20210401
 
-### Client
+COMMANDS:
+   server       Run as server mode
+   client       Run as client mode
+   httpsserver  Run as https server mode
+   httpsclient  Run as https client mode
+   help, h      Shows a list of commands or help for one command
 
-    # Local server is 127.0.0.1:1234, expect to expose: server_address:5678
-    $ mr2 client -s server_address:port -p password -P 5678 -c 127.0.0.1:1234
+GLOBAL OPTIONS:
+   --help, -h     show help (default: false)
+   --version, -v  print the version (default: false)
+```
 
-    # Local web root is /path/to/www, expect to expose: server_address:5678
-    $ mr2 client -s server_address:port -p password -P 5678 --clientDirectory /path/to/www
+### `$ mr2 server` on remote server
 
-### Example
+```
+$ mr2 server -l :9999 -p password
+```
+
+> More parameters: $ mr2 server -h<br/>
+> Note that the firewall opens TCP and UDP on all relevant ports
+
+### `$ mr2 client` on local
+
+Assume your remote mr2 server is `1.2.3.4:9999`, your local server is `127.0.0.1:8080`, want the remote server to open port `8888`
+
+```
+$ mr2 client -s 1.2.3.4:9999 -p password -P 8888 -c 127.0.0.1:8080
+```
+
+> More parameters: $ mr2 client -h<br/>
+
+Then access `1.2.3.4:8888` equals to access `127.0.0.1:8080`
+
+### Example of `server` and `client` 
 
 #### Access local HTTP server
 
-    $ mr2 client -s server_address:port -p password -P 5678 -c 127.0.0.1:8080
+```
+$ mr2 client -s 1.2.3.4:9999 -p password -P 8888 -c 127.0.0.1:8080
+```
 
-    # then
-    Your HTTP server in external network is: server_address:5678
+Then access `1.2.3.4:8888` equals to access `127.0.0.1:8080`
 
 #### SSH into local computer
 
-    $ mr2 client -s server_address:port -p password -P 5678 -c 127.0.0.1:22
+```
+$ mr2 client -s 1.2.3.4:9999 -p password -P 8888 -c 127.0.0.1:22
+```
 
-    # then
-    $ ssh -oPort=5678 user@server_address
+Then access `1.2.3.4:8888` equals to access `127.0.0.1:22`
+
+```
+$ ssh -oPort=8888 localuser@1.2.3.4
+```
 
 #### Access local DNS server
 
-    $ mr2 client -s server_address:port -p password -P 5678 -c 127.0.0.1:53
+```
+$ mr2 client -s 1.2.3.4:9999 -p password -P 8888 -c 127.0.0.1:53
+```
 
-    # then
-    Your DNS server in external network is: server_address:5678
+Then access `1.2.3.4:8888` equals to access `127.0.0.1:53`
 
-    $ dig github.com @server_address -p 5678
+```
+$ dig github.com @1.2.3.4 -p 8888
+```
 
 #### Access your local directory via HTTP
 
-    $ mr2 client -s server_address:port -p password -P 5678 --clientDirectory /path/to/www
+```
+$ mr2 client -s 1.2.3.4:9999 -p password -P 8888 --clientDirectory /path/to/www --clientPort 8080
+```
 
-    # then
-    A HTTP server in external network is: server_address:5678
+Then access `1.2.3.4:8888` equals to access `127.0.0.1:8080`, web root is /path/to/www
 
 #### Any TCP-based/UDP-based ideas you think of
 
-...
+### `$ mr2 httpsserver` on remote server
 
-## Contributing
+On remote server, assume your domain is `domain.com`, cert of `*.domain.com` is `./domain_com_cert.pem` and `./domain_com_cert_key.pem`, want https listen on `443`
 
-Please read [CONTRIBUTING.md](https://github.com/txthinking/mr2/blob/master/.github/CONTRIBUTING.md) first
+```
+$ mr2 httpsserver -l :9999 -p password --domain domain.com --cert ./domain_com_cert.pem --certKey ./domain_com_cert_key.pem --tlsPort 443
+```
+
+> More parameters: $ mr2 httpsserver -h<br/>
+> Note that the firewall opens TCP on all relevant ports
+
+### `$ mr2 httpsclient` on local
+
+On client, assume your remote mr2 httpsserver is `1.2.3.4:9999`, your local HTTP 1.1 server is `127.0.0.1:8080`, want the remote server to open subdomain `hey`
+
+```
+$ mr2 httpsclient -s 1.2.3.4:9999 -p password --serverSubdomain hey -c 127.0.0.1:8080
+```
+
+> More parameters: $ mr2 httpsclient -h
+
+Then access `https://hey.domain.com:443` equals to access `http://127.0.0.1:8080`
+
+## Author
+
+A project by [txthinking](https://www.txthinking.com)
 
 ## License
 
