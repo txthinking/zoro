@@ -24,7 +24,7 @@ import (
 	"syscall"
 
 	"github.com/txthinking/mr2"
-	"github.com/urfave/cli"
+	"github.com/urfave/cli/v2"
 )
 
 var debug bool
@@ -149,19 +149,6 @@ func main() {
 				},
 			},
 			Action: func(c *cli.Context) error {
-				if c.String("server") == "" || c.String("password") == "" || (c.Int64("serverPort") == 0 && c.String("serverDomain") == "") {
-					cli.ShowCommandHelp(c, "client")
-					return nil
-				}
-				if c.String("clientServer") == "" && c.String("clientDirectory") == "" {
-					cli.ShowCommandHelp(c, "client")
-					return nil
-				}
-				if debug {
-					go func() {
-						log.Println(http.ListenAndServe(debugListen, nil))
-					}()
-				}
 				cs := c.String("clientServer")
 				if c.String("clientDirectory") != "" {
 					go func() {
