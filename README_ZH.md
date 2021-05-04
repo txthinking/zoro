@@ -8,13 +8,19 @@
 
 mr2 帮助你将本地端口暴露在外网.**支持TCP/UDP**, 当然也支持HTTP. Keep it **simple**, **stupid**.
 
-### 安装 via [nami](https://github.com/txthinking/nami)
+### 使用[nami](https://github.com/txthinking/nami)安装
 
 ```
 $ nami install github.com/txthinking/mr2
 ```
 
-### Usage
+### 使用brew安装（macOS）
+
+```
+$ brew install mr2
+```
+
+### 使用说明
 
 ```
 NAME:
@@ -38,7 +44,7 @@ GLOBAL OPTIONS:
    --version, -v  print the version (default: false)
 ```
 
-## `server` and `client`
+## `服务端` 及 `客户端` 使用教程
 
 在远程服务器上. 注意防火墙开放所有相关端口的TCP和UDP协议
 
@@ -51,19 +57,19 @@ $ mr2 server -l :9999 -p password
 在本地. 假设你的远程 mr2 server 是`1.2.3.4:9999`, 你的本地服务是`127.0.0.1:8080`, 你想让远程服务器开放`8888`端口
 
 ```
-$ mr2 client -s 1.2.3.4:9999 -p password -P 8888 -c 127.0.0.1:8080
+$ mr2 client -s 1.2.3.4:9999 -p password --serverPort 8888 -c 127.0.0.1:8080
 ```
 
 > 更多参数: $ mr2 client -h<br/>
 
 现在访问 `1.2.3.4:8888` 就等于 `127.0.0.1:8080`
 
-## 举例 `server` and `client` 
+## `服务端` 及 `客户端` 的使用例子
 
 #### 暴露本地HTTP服务
 
 ```
-$ mr2 client -s 1.2.3.4:9999 -p password -P 8888 -c 127.0.0.1:8080
+$ mr2 client -s 1.2.3.4:9999 -p password --serverPort 8888 -c 127.0.0.1:8080
 ```
 
 现在访问 `1.2.3.4:8888` 就等于 `127.0.0.1:8080`
@@ -71,7 +77,7 @@ $ mr2 client -s 1.2.3.4:9999 -p password -P 8888 -c 127.0.0.1:8080
 #### 暴露本地SSH服务
 
 ```
-$ mr2 client -s 1.2.3.4:9999 -p password -P 8888 -c 127.0.0.1:22
+$ mr2 client -s 1.2.3.4:9999 -p password --serverPort 8888 -c 127.0.0.1:22
 ```
 
 现在访问 `1.2.3.4:8888` 就等于 `127.0.0.1:22`
@@ -83,7 +89,7 @@ $ ssh -oPort=8888 yourlocaluser@1.2.3.4
 #### 暴露本地DNS服务
 
 ```
-$ mr2 client -s 1.2.3.4:9999 -p password -P 8888 -c 127.0.0.1:53
+$ mr2 client -s 1.2.3.4:9999 -p password --serverPort 8888 -c 127.0.0.1:53
 ```
 
 现在访问 `1.2.3.4:8888` 就等于 `127.0.0.1:53`
@@ -95,10 +101,19 @@ $ dig github.com @1.2.3.4 -p 8888
 #### 暴露本地目录通过HTTP
 
 ```
-$ mr2 client -s 1.2.3.4:9999 -p password -P 8888 --clientDirectory /path/to/www --clientPort 8080
+$ mr2 client -s 1.2.3.4:9999 -p password --serverPort 8888 --clientDirectory /path/to/www --clientPort 8080
 ```
 
 现在访问 `1.2.3.4:8888` 就等于 `127.0.0.1:8080`, web root 是 /path/to/www
+
+#### 暴露本地brook代理
+
+```
+$ brook server -l :8080 -p password # 或者用 wsserver
+$ mr2 client -s 1.2.3.4:9999 -p password --serverPort 8888 -c 127.0.0.1:8080
+```
+
+现在访问 `1.2.3.4:8888` 就等于访问 `127.0.0.1:8080`，做到在没有公网ip的机器上搭建brook，在外使用家里或者公司非公网ip上网
 
 #### 暴露你能想到的任何TCP/UDP服务
 
@@ -106,7 +121,7 @@ $ mr2 client -s 1.2.3.4:9999 -p password -P 8888 --clientDirectory /path/to/www 
 ...
 ```
 
-## `httpsserver` and `httpsclient`
+## `httpsserver` 以及 `httpsclient`
 
 在远程服务器上. 假设你的域名是 `domain.com`, 泛域名证书`*.domain.com` 是 `./domain_com_cert.pem` 和 `./domain_com_cert_key.pem`, 想让HTTPS监听 443`. 注意防火墙开放任何相关端口的TCP协议
 
