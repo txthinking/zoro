@@ -113,7 +113,7 @@ $ brook server -l :8080 -p password # or wsserver
 $ mr2 client -s 1.2.3.4:9999 -p password --serverPort 8888 -c 127.0.0.1:8080
 ```
 
-Then access `1.2.3.4:8888` equals to access `127.0.0.1:8080`, used to create a brook server or wsserver in a server even if there is no public IP.
+Then access `1.2.3.4:8888` equals to access `127.0.0.1:8080`, used to create a brook server or wsserver in a server even if there is no public IP
 
 #### Expose any TCP/UDP service
 
