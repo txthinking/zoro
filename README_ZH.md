@@ -8,13 +8,19 @@
 
 mr2 帮助你将本地端口暴露在外网.**支持TCP/UDP**, 当然也支持HTTP. Keep it **simple**, **stupid**.
 
-### 安装 via [nami](https://github.com/txthinking/nami)
+### 使用[nami]安装(https://github.com/txthinking/nami)
 
 ```
 $ nami install github.com/txthinking/mr2
 ```
 
-### Usage
+### 使用brew安装（macOS）
+
+```
+$ brew install mr2
+```
+
+### 使用说明
 
 ```
 NAME:
@@ -38,7 +44,7 @@ GLOBAL OPTIONS:
    --version, -v  print the version (default: false)
 ```
 
-## `server` and `client`
+## `服务端` 及 `客户端` 使用教程
 
 在远程服务器上. 注意防火墙开放所有相关端口的TCP和UDP协议
 
@@ -58,7 +64,7 @@ $ mr2 client -s 1.2.3.4:9999 -p password --serverPort 8888 -c 127.0.0.1:8080
 
 现在访问 `1.2.3.4:8888` 就等于 `127.0.0.1:8080`
 
-## 举例 `server` and `client` 
+## `服务端` 及 `客户端` 的使用例子
 
 #### 暴露本地HTTP服务
 

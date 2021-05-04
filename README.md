@@ -14,6 +14,12 @@ mr2 can help you expose local server to external network. **Support both TCP/UDP
 $ nami install github.com/txthinking/mr2
 ```
 
+### Install via brew (macOS only)
+
+```
+$ brew install mr2
+```
+
 ### Usage
 
 ```
