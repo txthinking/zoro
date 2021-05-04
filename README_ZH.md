@@ -8,7 +8,7 @@
 
 mr2 帮助你将本地端口暴露在外网.**支持TCP/UDP**, 当然也支持HTTP. Keep it **simple**, **stupid**.
 
-### 使用[nami]安装(https://github.com/txthinking/nami)
+### 使用[nami](https://github.com/txthinking/nami)安装
 
 ```
 $ nami install github.com/txthinking/mr2
@@ -106,13 +106,22 @@ $ mr2 client -s 1.2.3.4:9999 -p password --serverPort 8888 --clientDirectory /pa
 
 现在访问 `1.2.3.4:8888` 就等于 `127.0.0.1:8080`, web root 是 /path/to/www
 
+#### 暴露本地brook代理
+
+```
+$ brook server -l :8080 -p password # 或者用 wsserver
+$ mr2 client -s 1.2.3.4:9999 -p password --serverPort 8888 -c 127.0.0.1:8080
+```
+
+现在访问 `1.2.3.4:8888` 就等于访问 `127.0.0.1:8080`，做到在外使用家里或者公司非公网ip上网，即使没有公网ip
+
 #### 暴露你能想到的任何TCP/UDP服务
 
 ```
 ...
 ```
 
-## `httpsserver` and `httpsclient`
+## `httpsserver` 以及 `httpsclient`
 
 在远程服务器上. 假设你的域名是 `domain.com`, 泛域名证书`*.domain.com` 是 `./domain_com_cert.pem` 和 `./domain_com_cert_key.pem`, 想让HTTPS监听 443`. 注意防火墙开放任何相关端口的TCP协议
 
