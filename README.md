@@ -51,7 +51,7 @@ $ mr2 server -l :9999 -p password
 On local. Assume your remote mr2 server is `1.2.3.4:9999`, your local server is `127.0.0.1:8080`, want the remote server to open port `8888`
 
 ```
-$ mr2 client -s 1.2.3.4:9999 -p password -P 8888 -c 127.0.0.1:8080
+$ mr2 client -s 1.2.3.4:9999 -p password --serverPort 8888 -c 127.0.0.1:8080
 ```
 
 > More parameters: $ mr2 client -h<br/>
@@ -63,7 +63,7 @@ Then access `1.2.3.4:8888` equals to access `127.0.0.1:8080`
 #### Expose local HTTP server
 
 ```
-$ mr2 client -s 1.2.3.4:9999 -p password -P 8888 -c 127.0.0.1:8080
+$ mr2 client -s 1.2.3.4:9999 -p password --serverPort 8888 -c 127.0.0.1:8080
 ```
 
 Then access `1.2.3.4:8888` equals to access `127.0.0.1:8080`
@@ -71,7 +71,7 @@ Then access `1.2.3.4:8888` equals to access `127.0.0.1:8080`
 #### Expose local SSH
 
 ```
-$ mr2 client -s 1.2.3.4:9999 -p password -P 8888 -c 127.0.0.1:22
+$ mr2 client -s 1.2.3.4:9999 -p password --serverPort 8888 -c 127.0.0.1:22
 ```
 
 Then access `1.2.3.4:8888` equals to access `127.0.0.1:22`
@@ -83,7 +83,7 @@ $ ssh -oPort=8888 yourlocaluser@1.2.3.4
 #### Expose local DNS server
 
 ```
-$ mr2 client -s 1.2.3.4:9999 -p password -P 8888 -c 127.0.0.1:53
+$ mr2 client -s 1.2.3.4:9999 -p password --serverPort 8888 -c 127.0.0.1:53
 ```
 
 Then access `1.2.3.4:8888` equals to access `127.0.0.1:53`
@@ -95,7 +95,7 @@ $ dig github.com @1.2.3.4 -p 8888
 #### Expose local directory via HTTP
 
 ```
-$ mr2 client -s 1.2.3.4:9999 -p password -P 8888 --clientDirectory /path/to/www --clientPort 8080
+$ mr2 client -s 1.2.3.4:9999 -p password --serverPort 8888 --clientDirectory /path/to/www --clientPort 8080
 ```
 
 Then access `1.2.3.4:8888` equals to access `127.0.0.1:8080`, web root is /path/to/www

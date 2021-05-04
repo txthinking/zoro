@@ -51,7 +51,7 @@ $ mr2 server -l :9999 -p password
 在本地. 假设你的远程 mr2 server 是`1.2.3.4:9999`, 你的本地服务是`127.0.0.1:8080`, 你想让远程服务器开放`8888`端口
 
 ```
-$ mr2 client -s 1.2.3.4:9999 -p password -P 8888 -c 127.0.0.1:8080
+$ mr2 client -s 1.2.3.4:9999 -p password --serverPort 8888 -c 127.0.0.1:8080
 ```
 
 > 更多参数: $ mr2 client -h<br/>
@@ -63,7 +63,7 @@ $ mr2 client -s 1.2.3.4:9999 -p password -P 8888 -c 127.0.0.1:8080
 #### 暴露本地HTTP服务
 
 ```
-$ mr2 client -s 1.2.3.4:9999 -p password -P 8888 -c 127.0.0.1:8080
+$ mr2 client -s 1.2.3.4:9999 -p password --serverPort 8888 -c 127.0.0.1:8080
 ```
 
 现在访问 `1.2.3.4:8888` 就等于 `127.0.0.1:8080`
@@ -71,7 +71,7 @@ $ mr2 client -s 1.2.3.4:9999 -p password -P 8888 -c 127.0.0.1:8080
 #### 暴露本地SSH服务
 
 ```
-$ mr2 client -s 1.2.3.4:9999 -p password -P 8888 -c 127.0.0.1:22
+$ mr2 client -s 1.2.3.4:9999 -p password --serverPort 8888 -c 127.0.0.1:22
 ```
 
 现在访问 `1.2.3.4:8888` 就等于 `127.0.0.1:22`
@@ -83,7 +83,7 @@ $ ssh -oPort=8888 yourlocaluser@1.2.3.4
 #### 暴露本地DNS服务
 
 ```
-$ mr2 client -s 1.2.3.4:9999 -p password -P 8888 -c 127.0.0.1:53
+$ mr2 client -s 1.2.3.4:9999 -p password --serverPort 8888 -c 127.0.0.1:53
 ```
 
 现在访问 `1.2.3.4:8888` 就等于 `127.0.0.1:53`
@@ -95,7 +95,7 @@ $ dig github.com @1.2.3.4 -p 8888
 #### 暴露本地目录通过HTTP
 
 ```
-$ mr2 client -s 1.2.3.4:9999 -p password -P 8888 --clientDirectory /path/to/www --clientPort 8080
+$ mr2 client -s 1.2.3.4:9999 -p password --serverPort 8888 --clientDirectory /path/to/www --clientPort 8080
 ```
 
 现在访问 `1.2.3.4:8888` 就等于 `127.0.0.1:8080`, web root 是 /path/to/www
