@@ -8,6 +8,8 @@
 
 mr2 帮助你将本地端口暴露在外网.**支持TCP/UDP**, 当然也支持HTTP. Keep it **simple**, **stupid**.
 
+❤️ A project by [txthinking.com](https://www.txthinking.com)
+
 ### 使用[nami](https://github.com/txthinking/nami)安装
 
 ```
@@ -144,10 +146,6 @@ $ mr2 httpsclient -s 1.2.3.4:9999 -p password --serverSubdomain hey -c 127.0.0.1
 ## 关于UDP
 
 在一些多层NAT情况下, 可能UDP会失败. 我在本地直接连接ISP提供的Wi-Fi的情况测试通过.
-
-## 作者
-
-A project by [txthinking](https://www.txthinking.com)
 
 ## 开源协议
 
