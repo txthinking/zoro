@@ -8,6 +8,8 @@
 
 mr2 can help you expose local server to external network. **Support both TCP/UDP**, of course support HTTP. Keep it **simple**, **stupid**.
 
+❤️ A project by [txthinking.com](https://www.txthinking.com)
+
 ### Install via [nami](https://github.com/txthinking/nami)
 
 ```
@@ -144,10 +146,6 @@ Then access `https://hey.domain.com:443` equals to access `http://127.0.0.1:8080
 ## About UDP
 
 In some cases of multi-layer NAT, UDP may fail. I passed the test when I connected directly to the Wi-Fi provided by the ISP.
-
-## Author
-
-A project by [txthinking](https://www.txthinking.com)
 
 ## License
 
