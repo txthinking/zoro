@@ -16,7 +16,7 @@ zoro (mr2) can help you expose local server to external network. **Support both 
 $ nami install zoro
 ```
 
-### Install via brew (macOS only)
+### Install via brew
 
 ```
 $ brew install zoro
