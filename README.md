@@ -22,24 +22,24 @@ $ nami install zoro
 $ brew install zoro
 ```
 
-### 公共 `zoro httpsserver`
+### Public `zoro httpsserver`
 
-> 由 [@txthinking](https://github.com/txthinking) 提供
+> provide by [@txthinking](https://github.com/txthinking)
 
 ```
 zoro httpsserver -l :9999 -p zoro -d zoro.ooo --googledns ./service_account.json
 ```
 
-你可以直接使用这个 zoro httpsserver 而不用立即部署自己的 zoro httpsserver, 如下:
+You can use this zoro httpsserver directly without deploying your own zoro httpsserver immediately, as follows:
 
 ```
-# 暴露你本地的 http://127.0.0.1:8080
+# Expose http://127.0.0.1:8080
 zoro httpsclient -s zoro.ooo:9999 -p zoro -c 127.0.0.1:8080
 
-# 暴露你本地的一个目录, 比如当前目录
+# Expose current directory
 zoro httpsclient -s zoro.ooo:9999 -p zoro -d ./
 
-# 然后, 访问 https://xxxxxxxxx.zoro.ooo 即可
+# Then, visit https://xxxxxxxxx.zoro.ooo
 ```
 
 ### Usage
