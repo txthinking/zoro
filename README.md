@@ -71,7 +71,7 @@ On remote server. Note that the firewall opens TCP and UDP on all relevant ports
 $ zoro server --listen :9999 --password password
 ```
 
-> More parameters: $ zoro server -h
+> More parameters: $ zoro server --help
 
 On local. Assume your remote zoro server is `1.2.3.4:9999`, your local server is `127.0.0.1:8080`, want the remote server to open port `8888`
 
@@ -79,7 +79,7 @@ On local. Assume your remote zoro server is `1.2.3.4:9999`, your local server is
 $ zoro client --server 1.2.3.4:9999 --password password --serverport 8888 --client 127.0.0.1:8080
 ```
 
-> More parameters: $ zoro client -h<br/>
+> More parameters: $ zoro client --help
 
 Then access `1.2.3.4:8888` equals to access `127.0.0.1:8080`
 
@@ -91,7 +91,7 @@ On remote server. Assume your domain is `domain.com`, cert of `*.domain.com` is 
 $ zoro httpsserver --listen :9999 --password password --domain domain.com --cert ./domain_com_cert.pem --key ./domain_com_cert_key.pem --tlsport 443
 ```
 
-> More parameters: $ zoro httpsserver -h<br/>
+> More parameters: $ zoro httpsserver --help
 
 On local. Assume your remote zoro httpsserver is `1.2.3.4:9999`, your local HTTP 1.1 server is `127.0.0.1:8080`, want the remote server to open subdomain `hello`
 
@@ -99,7 +99,7 @@ On local. Assume your remote zoro httpsserver is `1.2.3.4:9999`, your local HTTP
 $ zoro httpsclient --server 1.2.3.4:9999 --password password --subdomain hello --client 127.0.0.1:8080
 ```
 
-> More parameters: $ zoro httpsclient -h
+> More parameters: $ zoro httpsclient --help
 
 Then access `https://hello.domain.com:443` equals to access `http://127.0.0.1:8080`
 
@@ -144,15 +144,6 @@ $ zoro client --server 1.2.3.4:9999 --password password --serverport 8888 --dir 
 ```
 
 Then access `1.2.3.4:8888` equals to access `127.0.0.1:8080`, web root is /path/to/www
-
-#### Expose local brook server
-
-```
-$ brook server -l :8080 -p password
-$ zoro client --server 1.2.3.4:9999 --password password --serverport 8888 --client 127.0.0.1:8080
-```
-
-Then access `1.2.3.4:8888` equals to access `127.0.0.1:8080`, used to create a brook server in a server even if there is no public IP
 
 #### Expose any TCP/UDP service
 
