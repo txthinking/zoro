@@ -15,6 +15,7 @@
 package main
 
 import (
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -37,7 +38,7 @@ import (
 func main() {
 	app := cli.NewApp()
 	app.Name = "zoro"
-	app.Version = "20211228"
+	app.Version = "20211229"
 	app.Usage = "Expose local TCP and UDP server to external network"
 	app.Commands = []*cli.Command{
 		&cli.Command{
@@ -140,7 +141,7 @@ func main() {
 					go func() {
 						log.Println(http.ListenAndServe(":"+strconv.FormatInt(c.Int64("clientPort"), 10), http.FileServer(http.Dir(c.String("clientDirectory")))))
 					}()
-					cs = "localhost:" + strconv.FormatInt(c.Int64("clientPort"), 10)
+					cs = "127.0.0.1:" + strconv.FormatInt(c.Int64("clientPort"), 10)
 				}
 				s := zoro.NewClient(c.String("server"), c.String("password"), c.Int64("serverPort"), "", cs, c.Int64("tcpTimeout"), c.Int64("tcpDeadline"), c.Int64("udpDeadline"))
 				go func() {
@@ -318,7 +319,7 @@ func main() {
 						return err
 					}
 					sd = strings.ToLower(id)
-					return nil
+					fmt.Println("Subdomain:", sd)
 				}
 				if c.String("clientServer") == "" && (c.String("clientDirectory") == "" || c.Int64("clientPort") == 0) {
 					cli.ShowCommandHelp(c, "httpsclient")
@@ -329,7 +330,7 @@ func main() {
 					go func() {
 						log.Println(http.ListenAndServe(":"+strconv.FormatInt(c.Int64("clientPort"), 10), http.FileServer(http.Dir(c.String("clientDirectory")))))
 					}()
-					cs = "localhost:" + strconv.FormatInt(c.Int64("clientPort"), 10)
+					cs = "127.0.0.1:" + strconv.FormatInt(c.Int64("clientPort"), 10)
 				}
 				s := zoro.NewClient(c.String("server"), c.String("password"), 0, sd, cs, c.Int64("tcpTimeout"), c.Int64("tcpDeadline"), c.Int64("udpDeadline"))
 				go func() {
