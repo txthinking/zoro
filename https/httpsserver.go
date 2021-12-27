@@ -22,21 +22,21 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/txthinking/encrypt"
+	"github.com/txthinking/crypto"
 )
 
 // HTTPSServer .
 type HTTPSServer struct {
 	TCPAddr   *net.TCPAddr
 	TCPListen *net.TCPListener
-	Ckv       *encrypt.KV
+	Ckv       *crypto.KV
 
 	Domain      string
 	TLSConfig   *tls.Config
 	TLSAddr     *net.TCPAddr
 	TLSTimeout  int64
 	TLSDeadline int64
-	DomainCkv   map[string]*encrypt.KV
+	DomainCkv   map[string]*crypto.KV
 	TLSServer   *TLSServer
 }
 
@@ -54,13 +54,13 @@ func NewHTTPSServer(addr, password string, domain, cert, certKey string, tlsPort
 	}
 	tc := &tls.Config{Certificates: []tls.Certificate{cer}}
 	tc.NextProtos = []string{"http/1.1"}
-	dc := make(map[string]*encrypt.KV)
+	dc := make(map[string]*crypto.KV)
 	for _, v := range domainPassword {
 		l := strings.Split(v, " ")
 		if len(l) != 2 {
 			return nil, errors.New("Wrong format: " + v)
 		}
-		ckv := &encrypt.KV{
+		ckv := &crypto.KV{
 			AESKey: []byte(l[1]),
 		}
 		dc[l[0]] = ckv
@@ -71,7 +71,7 @@ func NewHTTPSServer(addr, password string, domain, cert, certKey string, tlsPort
 	}
 	s := &HTTPSServer{
 		TCPAddr: taddr,
-		Ckv: &encrypt.KV{
+		Ckv: &crypto.KV{
 			AESKey: []byte(password),
 		},
 		Domain:      domain,

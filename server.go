@@ -12,7 +12,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-package mr2
+package zoro
 
 import (
 	"errors"
@@ -23,7 +23,7 @@ import (
 
 	"github.com/gogo/protobuf/proto"
 	cache "github.com/patrickmn/go-cache"
-	"github.com/txthinking/encrypt"
+	"github.com/txthinking/crypto"
 )
 
 // Server .
@@ -33,13 +33,13 @@ type Server struct {
 	TCPListen *net.TCPListener
 	UDPConn   *net.UDPConn
 	Cache     *cache.Cache
-	Ckv       *encrypt.KV
-	PortCkv   map[int64]*encrypt.KV
+	Ckv       *crypto.KV
+	PortCkv   map[int64]*crypto.KV
 }
 
 // NewServer .
 func NewServer(addr, password string, portPassword []string) (*Server, error) {
-	pc := make(map[int64]*encrypt.KV)
+	pc := make(map[int64]*crypto.KV)
 	for _, v := range portPassword {
 		l := strings.Split(v, " ")
 		if len(l) != 2 {
@@ -49,7 +49,7 @@ func NewServer(addr, password string, portPassword []string) (*Server, error) {
 		if err != nil {
 			return nil, err
 		}
-		ckv := &encrypt.KV{
+		ckv := &crypto.KV{
 			AESKey: []byte(l[1]),
 		}
 		pc[port] = ckv
@@ -66,7 +66,7 @@ func NewServer(addr, password string, portPassword []string) (*Server, error) {
 		TCPAddr: taddr,
 		UDPAddr: uaddr,
 		Cache:   cache.New(cache.NoExpiration, cache.NoExpiration),
-		Ckv: &encrypt.KV{
+		Ckv: &crypto.KV{
 			AESKey: []byte(password),
 		},
 		PortCkv: pc,

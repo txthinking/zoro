@@ -12,12 +12,12 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-package mr2
+package zoro
 
 import (
 	"net"
 
-	"github.com/txthinking/encrypt"
+	"github.com/txthinking/crypto"
 )
 
 // Client .
@@ -30,7 +30,7 @@ type Client struct {
 	TCPTimeout   int64
 	UDPDeadline  int64
 	UDPConn      *net.UDPConn
-	Ckv          *encrypt.KV
+	Ckv          *crypto.KV
 	TCPClient    *TCPClient
 	UDPClient    *UDPClient
 }
@@ -45,7 +45,7 @@ func NewClient(server, password string, serverPort int64, serverDomain, clientSe
 		TCPTimeout:   tcpTimeout,
 		TCPDeadline:  tcpDeadline,
 		UDPDeadline:  udpDeadline,
-		Ckv: &encrypt.KV{
+		Ckv: &crypto.KV{
 			AESKey: []byte(password),
 		},
 	}

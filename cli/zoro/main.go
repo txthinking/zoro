@@ -21,16 +21,17 @@ import (
 	"os"
 	"os/signal"
 	"strconv"
+	"strings"
 	"syscall"
 
-	"github.com/txthinking/mr2"
-	"github.com/txthinking/mr2/https"
+	"github.com/txthinking/zoro"
+	"github.com/txthinking/zoro/https"
 	"github.com/urfave/cli/v2"
 )
 
 func main() {
 	app := cli.NewApp()
-	app.Name = "mr2"
+	app.Name = "zoro"
 	app.Version = "20210401"
 	app.Usage = "Expose local TCP and UDP server to external network"
 	app.Commands = []*cli.Command{
@@ -59,7 +60,7 @@ func main() {
 					cli.ShowCommandHelp(c, "server")
 					return nil
 				}
-				s, err := mr2.NewServer(c.String("listen"), c.String("password"), c.StringSlice("portPassword"))
+				s, err := zoro.NewServer(c.String("listen"), c.String("password"), c.StringSlice("portPassword"))
 				if err != nil {
 					return err
 				}
@@ -135,7 +136,7 @@ func main() {
 					}()
 					cs = "localhost:" + strconv.FormatInt(c.Int64("clientPort"), 10)
 				}
-				s := mr2.NewClient(c.String("server"), c.String("password"), c.Int64("serverPort"), "", cs, c.Int64("tcpTimeout"), c.Int64("tcpDeadline"), c.Int64("udpDeadline"))
+				s := zoro.NewClient(c.String("server"), c.String("password"), c.Int64("serverPort"), "", cs, c.Int64("tcpTimeout"), c.Int64("tcpDeadline"), c.Int64("udpDeadline"))
 				go func() {
 					sigs := make(chan os.Signal, 1)
 					signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
@@ -226,7 +227,7 @@ func main() {
 				},
 				&cli.StringFlag{
 					Name:  "serverSubdomain",
-					Usage: "Server subdomain you want to use",
+					Usage: "Server subdomain you want to use, default random",
 				},
 				&cli.StringFlag{
 					Name:    "clientServer",
@@ -258,8 +259,17 @@ func main() {
 				},
 			},
 			Action: func(c *cli.Context) error {
-				if c.String("server") == "" || c.String("password") == "" || c.String("serverSubdomain") == "" {
+				if c.String("server") == "" || c.String("password") == "" {
 					cli.ShowCommandHelp(c, "httpsclient")
+					return nil
+				}
+				sd := ""
+				if c.String("serverSubdomain") == "" {
+					id, err := machineid.ID()
+					if err != nil {
+						return err
+					}
+					sd = strings.ToLower(id)
 					return nil
 				}
 				if c.String("clientServer") == "" && (c.String("clientDirectory") == "" || c.Int64("clientPort") == 0) {
@@ -273,7 +283,7 @@ func main() {
 					}()
 					cs = "localhost:" + strconv.FormatInt(c.Int64("clientPort"), 10)
 				}
-				s := mr2.NewClient(c.String("server"), c.String("password"), 0, c.String("serverSubdomain"), cs, c.Int64("tcpTimeout"), c.Int64("tcpDeadline"), c.Int64("udpDeadline"))
+				s := zoro.NewClient(c.String("server"), c.String("password"), 0, sd, cs, c.Int64("tcpTimeout"), c.Int64("tcpDeadline"), c.Int64("udpDeadline"))
 				go func() {
 					sigs := make(chan os.Signal, 1)
 					signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)

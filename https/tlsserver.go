@@ -26,7 +26,7 @@ import (
 
 	"github.com/gogo/protobuf/proto"
 	cache "github.com/patrickmn/go-cache"
-	"github.com/txthinking/mr2"
+	"github.com/txthinking/zoro"
 )
 
 type DomainData struct {
@@ -133,7 +133,7 @@ func (s *TLSServer) Accept() {
 		s.Cache.Set(tc.RemoteAddr().String(), tc, cache.DefaultExpiration)
 		go func(tc *tls.Conn) {
 			defer func() {
-				p := &mr2.TCPPacket{
+				p := &zoro.TCPPacket{
 					Address: tc.RemoteAddr().String(),
 				}
 				b, err := proto.Marshal(p)
@@ -170,7 +170,7 @@ func (s *TLSServer) Accept() {
 				if err != nil {
 					return
 				}
-				p := &mr2.TCPPacket{
+				p := &zoro.TCPPacket{
 					Address: tc.RemoteAddr().String(),
 					Data:    bf[0:i],
 				}
@@ -216,7 +216,7 @@ func (s *TLSServer) HandleClient(c *net.TCPConn) error {
 	if _, err := io.ReadFull(c, b); err != nil {
 		return nil
 	}
-	h := &mr2.TCPHello{}
+	h := &zoro.TCPHello{}
 	if err := proto.Unmarshal(b, h); err != nil {
 		return nil
 	}
@@ -260,11 +260,11 @@ func (s *TLSServer) HandleClient(c *net.TCPConn) error {
 			return nil
 		}
 		if k == 0x00 {
-			p := &mr2.PingPong{}
+			p := &zoro.PingPong{}
 			if err := proto.Unmarshal(b, p); err != nil {
 				return err
 			}
-			b, err := proto.Marshal(&mr2.PingPong{})
+			b, err := proto.Marshal(&zoro.PingPong{})
 			if err != nil {
 				return err
 			}
@@ -282,7 +282,7 @@ func (s *TLSServer) HandleClient(c *net.TCPConn) error {
 			continue
 		}
 		if k == 0x01 {
-			p := &mr2.TCPPacket{}
+			p := &zoro.TCPPacket{}
 			if err := proto.Unmarshal(b, p); err != nil {
 				return err
 			}
@@ -297,7 +297,7 @@ func (s *TLSServer) HandleClient(c *net.TCPConn) error {
 			continue
 		}
 		if k == 0x02 {
-			p := &mr2.TCPPacket{}
+			p := &zoro.TCPPacket{}
 			if err := proto.Unmarshal(b, p); err != nil {
 				return err
 			}

@@ -14,7 +14,7 @@
 
 syntax = "proto3";
 
-option go_package = "mr2";
+option go_package = "zoro";
 
 message TCPHello{
     int64 Port = 1;
