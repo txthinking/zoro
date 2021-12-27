@@ -3,6 +3,7 @@ module github.com/txthinking/zoro
 go 1.16
 
 require (
+	github.com/denisbrodbeck/machineid v1.0.1
 	github.com/gogo/protobuf v1.3.2
 	github.com/golang/protobuf v1.5.2
 	github.com/patrickmn/go-cache v2.1.0+incompatible

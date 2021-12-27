@@ -63,6 +63,26 @@ $ zoro client -s 1.2.3.4:9999 -p password --serverPort 8888 -c 127.0.0.1:8080
 
 Then access `1.2.3.4:8888` equals to access `127.0.0.1:8080`
 
+## `httpsserver` and `httpsclient`
+
+On remote server. Assume your domain is `domain.com`, cert of `*.domain.com` is `./domain_com_cert.pem` and `./domain_com_cert_key.pem`, want https listen on `443`. Note that the firewall opens TCP on all relevant ports
+
+```
+$ zoro httpsserver -l :9999 -p password --domain domain.com --cert ./domain_com_cert.pem --certKey ./domain_com_cert_key.pem --tlsPort 443
+```
+
+> More parameters: $ zoro httpsserver -h<br/>
+
+On local. Assume your remote zoro httpsserver is `1.2.3.4:9999`, your local HTTP 1.1 server is `127.0.0.1:8080`, want the remote server to open subdomain `hey`
+
+```
+$ zoro httpsclient -s 1.2.3.4:9999 -p password --serverSubdomain hey -c 127.0.0.1:8080
+```
+
+> More parameters: $ zoro httpsclient -h
+
+Then access `https://hey.domain.com:443` equals to access `http://127.0.0.1:8080`
+
 ## Example of `server` and `client`
 
 #### Expose local HTTP server
@@ -119,26 +139,6 @@ Then access `1.2.3.4:8888` equals to access `127.0.0.1:8080`, used to create a b
 ```
 ...
 ```
-
-## `httpsserver` and `httpsclient`
-
-On remote server. Assume your domain is `domain.com`, cert of `*.domain.com` is `./domain_com_cert.pem` and `./domain_com_cert_key.pem`, want https listen on `443`. Note that the firewall opens TCP on all relevant ports
-
-```
-$ zoro httpsserver -l :9999 -p password --domain domain.com --cert ./domain_com_cert.pem --certKey ./domain_com_cert_key.pem --tlsPort 443
-```
-
-> More parameters: $ zoro httpsserver -h<br/>
-
-On local. Assume your remote zoro httpsserver is `1.2.3.4:9999`, your local HTTP 1.1 server is `127.0.0.1:8080`, want the remote server to open subdomain `hey`
-
-```
-$ zoro httpsclient -s 1.2.3.4:9999 -p password --serverSubdomain hey -c 127.0.0.1:8080
-```
-
-> More parameters: $ zoro httpsclient -h
-
-Then access `https://hey.domain.com:443` equals to access `http://127.0.0.1:8080`
 
 ## About UDP
 

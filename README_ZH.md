@@ -43,7 +43,7 @@ GLOBAL OPTIONS:
    --version, -v  print the version (default: false)
 ```
 
-## `服务端` 及 `客户端` 使用教程
+## `server` 及 `client` 使用教程
 
 在远程服务器上. 注意防火墙开放所有相关端口的TCP和UDP协议
 
@@ -62,6 +62,26 @@ $ zoro client -s 1.2.3.4:9999 -p password --serverPort 8888 -c 127.0.0.1:8080
 > 更多参数: $ zoro client -h<br/>
 
 现在访问 `1.2.3.4:8888` 就等于 `127.0.0.1:8080`
+
+## `httpsserver` 以及 `httpsclient`
+
+在远程服务器上. 假设你的域名是 `domain.com`, 泛域名证书`*.domain.com` 是 `./domain_com_cert.pem` 和 `./domain_com_cert_key.pem`, 想让HTTPS监听 443`. 注意防火墙开放任何相关端口的TCP协议
+
+```
+$ zoro httpsserver -l :9999 -p password --domain domain.com --cert ./domain_com_cert.pem --certKey ./domain_com_cert_key.pem --tlsPort 443
+```
+
+> 更多参数: $ zoro httpsserver -h
+
+在本地. 假设你的远程 zoro httpsserver 是 `1.2.3.4:9999`, 你的本地 HTTP 1.1 服务是 `127.0.0.1:8080`, 想让远程服务器开放子域名 `hey`
+
+```
+$ zoro httpsclient -s 1.2.3.4:9999 -p password --serverSubdomain hey -c 127.0.0.1:8080
+```
+
+> 更多参数: $ zoro httpsclient -h
+
+现在访问 `https://hey.domain.com:443` 就等于 `http://127.0.0.1:8080`
 
 ## `服务端` 及 `客户端` 的使用例子
 
@@ -119,26 +139,6 @@ $ zoro client -s 1.2.3.4:9999 -p password --serverPort 8888 -c 127.0.0.1:8080
 ```
 ...
 ```
-
-## `httpsserver` 以及 `httpsclient`
-
-在远程服务器上. 假设你的域名是 `domain.com`, 泛域名证书`*.domain.com` 是 `./domain_com_cert.pem` 和 `./domain_com_cert_key.pem`, 想让HTTPS监听 443`. 注意防火墙开放任何相关端口的TCP协议
-
-```
-$ zoro httpsserver -l :9999 -p password --domain domain.com --cert ./domain_com_cert.pem --certKey ./domain_com_cert_key.pem --tlsPort 443
-```
-
-> 更多参数: $ zoro httpsserver -h
-
-在本地. 假设你的远程 zoro httpsserver 是 `1.2.3.4:9999`, 你的本地 HTTP 1.1 服务是 `127.0.0.1:8080`, 想让远程服务器开放子域名 `hey`
-
-```
-$ zoro httpsclient -s 1.2.3.4:9999 -p password --serverSubdomain hey -c 127.0.0.1:8080
-```
-
-> 更多参数: $ zoro httpsclient -h
-
-现在访问 `https://hey.domain.com:443` 就等于 `http://127.0.0.1:8080`
 
 ## 关于UDP
 
