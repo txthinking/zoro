@@ -73,7 +73,7 @@ $ zoro httpsserver --listen :9999 --password password --domain domain.com --cert
 
 > More parameters: $ zoro httpsserver -h<br/>
 
-On local. Assume your remote zoro httpsserver is `1.2.3.4:9999`, your local HTTP 1.1 server is `127.0.0.1:8080`, want the remote server to open subdomain `hey`
+On local. Assume your remote zoro httpsserver is `1.2.3.4:9999`, your local HTTP 1.1 server is `127.0.0.1:8080`, want the remote server to open subdomain `hello`
 
 ```
 $ zoro httpsclient --server 1.2.3.4:9999 --password password --subdomain hello --client 127.0.0.1:8080
