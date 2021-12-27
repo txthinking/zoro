@@ -24,6 +24,7 @@ import (
 	"strings"
 	"syscall"
 
+	"github.com/denisbrodbeck/machineid"
 	"github.com/txthinking/zoro"
 	"github.com/txthinking/zoro/https"
 	"github.com/urfave/cli/v2"
