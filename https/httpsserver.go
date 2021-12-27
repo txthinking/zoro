@@ -48,12 +48,6 @@ func NewHTTPSServer(addr, password string, domain, cert, certKey string, tlsPort
 	if err != nil {
 		return nil, err
 	}
-	cer, err := tls.LoadX509KeyPair(cert, certKey)
-	if err != nil {
-		return nil, err
-	}
-	tc := &tls.Config{Certificates: []tls.Certificate{cer}}
-	tc.NextProtos = []string{"http/1.1"}
 	dc := make(map[string]*crypto.KV)
 	for _, v := range domainPassword {
 		l := strings.Split(v, " ")
@@ -75,11 +69,19 @@ func NewHTTPSServer(addr, password string, domain, cert, certKey string, tlsPort
 			AESKey: []byte(password),
 		},
 		Domain:      domain,
-		TLSConfig:   tc,
 		TLSAddr:     tlsAddr,
 		TLSTimeout:  tlsTimeout,
 		TLSDeadline: tlsDeadline,
 		DomainCkv:   dc,
+	}
+	if cert != "" && certKey != "" {
+		cer, err := tls.LoadX509KeyPair(cert, certKey)
+		if err != nil {
+			return nil, err
+		}
+		tc := &tls.Config{Certificates: []tls.Certificate{cer}}
+		tc.NextProtos = []string{"http/1.1"}
+		s.TLSConfig = tc
 	}
 	return s, nil
 }

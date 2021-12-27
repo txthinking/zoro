@@ -15,6 +15,7 @@
 package main
 
 import (
+	"io/ioutil"
 	"log"
 	"net/http"
 	_ "net/http/pprof"
@@ -24,7 +25,10 @@ import (
 	"strings"
 	"syscall"
 
+	"github.com/bitly/go-simplejson"
+	"github.com/caddyserver/certmagic"
 	"github.com/denisbrodbeck/machineid"
+	"github.com/libdns/googleclouddns"
 	"github.com/txthinking/zoro"
 	"github.com/txthinking/zoro/https"
 	"github.com/urfave/cli/v2"
@@ -33,7 +37,7 @@ import (
 func main() {
 	app := cli.NewApp()
 	app.Name = "zoro"
-	app.Version = "20211227"
+	app.Version = "20211228"
 	app.Usage = "Expose local TCP and UDP server to external network"
 	app.Commands = []*cli.Command{
 		&cli.Command{
@@ -104,6 +108,7 @@ func main() {
 				&cli.Int64Flag{
 					Name:  "clientPort",
 					Usage: "Work with --clientDirectory",
+					Value: 8080,
 				},
 				&cli.Int64Flag{
 					Name:  "tcpTimeout",
@@ -173,6 +178,10 @@ func main() {
 					Name:  "certKey",
 					Usage: "Cert key of *.domain.com, like: ./path/to/cert_key.pem",
 				},
+				&cli.StringFlag{
+					Name:  "googledns",
+					Usage: "Pointing to a service account file, this will ignore --cert and --certKey",
+				},
 				&cli.Int64Flag{
 					Name:  "tlsPort",
 					Usage: "TLS Port, works with --domain",
@@ -195,11 +204,48 @@ func main() {
 				},
 			},
 			Action: func(c *cli.Context) error {
-				if c.String("listen") == "" || c.String("domain") == "" || c.String("cert") == "" || c.String("certKey") == "" || (c.String("password") == "" && len(c.StringSlice("subdomainPassword")) == 0) {
+				if c.String("listen") == "" || c.String("domain") == "" || (c.String("password") == "" && len(c.StringSlice("subdomainPassword")) == 0) {
+					cli.ShowCommandHelp(c, "httpsserver")
+					return nil
+				}
+				if (c.String("cert") == "" || c.String("certKey") == "") && c.String("googledns") == "" {
 					cli.ShowCommandHelp(c, "httpsserver")
 					return nil
 				}
 				s, err := https.NewHTTPSServer(c.String("listen"), c.String("password"), c.String("domain"), c.String("cert"), c.String("certKey"), c.Int64("tlsPort"), c.Int64("tlsTimeout"), c.Int64("tlsDeadline"), c.StringSlice("subdomainPassword"))
+				if err != nil {
+					return err
+				}
+				if c.String("cert") == "" || c.String("certKey") == "" {
+					certmagic.DefaultACME.Agreed = true
+					certmagic.DefaultACME.Email = "cloud+zoro@txthinking.com"
+					certmagic.DefaultACME.CA = certmagic.LetsEncryptProductionCA
+					if c.String("googledns") != "" {
+						b, err := ioutil.ReadFile(c.String("googledns"))
+						if err != nil {
+							return err
+						}
+						j, err := simplejson.NewJson(b)
+						if err != nil {
+							return err
+						}
+						s, err := j.Get("project_id").String()
+						if err != nil {
+							return err
+						}
+						certmagic.DefaultACME.DNS01Solver = &certmagic.DNS01Solver{
+							DNSProvider: &googleclouddns.Provider{
+								Project:            s,
+								ServiceAccountJSON: c.String("googledns"),
+							},
+						}
+					}
+					tc, err := certmagic.TLS([]string{"*." + c.String("domain")})
+					if err != nil {
+						return err
+					}
+					s.TLSConfig = tc
+				}
 				if err != nil {
 					return err
 				}
@@ -242,6 +288,7 @@ func main() {
 				&cli.Int64Flag{
 					Name:  "clientPort",
 					Usage: "Work with --clientDirectory",
+					Value: 8080,
 				},
 				&cli.Int64Flag{
 					Name:  "tcpTimeout",
