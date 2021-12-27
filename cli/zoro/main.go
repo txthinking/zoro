@@ -32,7 +32,7 @@ import (
 func main() {
 	app := cli.NewApp()
 	app.Name = "zoro"
-	app.Version = "20210401"
+	app.Version = "20211227"
 	app.Usage = "Expose local TCP and UDP server to external network"
 	app.Commands = []*cli.Command{
 		&cli.Command{
