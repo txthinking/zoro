@@ -48,7 +48,7 @@ GLOBAL OPTIONS:
 On remote server. Note that the firewall opens TCP and UDP on all relevant ports
 
 ```
-$ zoro server -l :9999 -p password
+$ zoro server --listen :9999 --password password
 ```
 
 > More parameters: $ zoro server -h
@@ -56,7 +56,7 @@ $ zoro server -l :9999 -p password
 On local. Assume your remote zoro server is `1.2.3.4:9999`, your local server is `127.0.0.1:8080`, want the remote server to open port `8888`
 
 ```
-$ zoro client -s 1.2.3.4:9999 -p password --serverPort 8888 -c 127.0.0.1:8080
+$ zoro client --server 1.2.3.4:9999 --password password --serverport 8888 --client 127.0.0.1:8080
 ```
 
 > More parameters: $ zoro client -h<br/>
@@ -68,7 +68,7 @@ Then access `1.2.3.4:8888` equals to access `127.0.0.1:8080`
 On remote server. Assume your domain is `domain.com`, cert of `*.domain.com` is `./domain_com_cert.pem` and `./domain_com_cert_key.pem`, want https listen on `443`. Note that the firewall opens TCP on all relevant ports
 
 ```
-$ zoro httpsserver -l :9999 -p password --domain domain.com --cert ./domain_com_cert.pem --certKey ./domain_com_cert_key.pem --tlsPort 443
+$ zoro httpsserver --listen :9999 --password password --domain domain.com --cert ./domain_com_cert.pem --key ./domain_com_cert_key.pem --tlsport 443
 ```
 
 > More parameters: $ zoro httpsserver -h<br/>
@@ -76,19 +76,19 @@ $ zoro httpsserver -l :9999 -p password --domain domain.com --cert ./domain_com_
 On local. Assume your remote zoro httpsserver is `1.2.3.4:9999`, your local HTTP 1.1 server is `127.0.0.1:8080`, want the remote server to open subdomain `hey`
 
 ```
-$ zoro httpsclient -s 1.2.3.4:9999 -p password --serverSubdomain hey -c 127.0.0.1:8080
+$ zoro httpsclient --server 1.2.3.4:9999 --password password --subdomain hello --client 127.0.0.1:8080
 ```
 
 > More parameters: $ zoro httpsclient -h
 
-Then access `https://hey.domain.com:443` equals to access `http://127.0.0.1:8080`
+Then access `https://hello.domain.com:443` equals to access `http://127.0.0.1:8080`
 
 ## Example of `server` and `client`
 
 #### Expose local HTTP server
 
 ```
-$ zoro client -s 1.2.3.4:9999 -p password --serverPort 8888 -c 127.0.0.1:8080
+$ zoro client --server 1.2.3.4:9999 --password password --serverport 8888 --client 127.0.0.1:8080
 ```
 
 Then access `1.2.3.4:8888` equals to access `127.0.0.1:8080`
@@ -96,7 +96,7 @@ Then access `1.2.3.4:8888` equals to access `127.0.0.1:8080`
 #### Expose local SSH
 
 ```
-$ zoro client -s 1.2.3.4:9999 -p password --serverPort 8888 -c 127.0.0.1:22
+$ zoro client --server 1.2.3.4:9999 --password password --serverport 8888 --client 127.0.0.1:22
 ```
 
 Then access `1.2.3.4:8888` equals to access `127.0.0.1:22`
@@ -108,7 +108,7 @@ $ ssh -oPort=8888 yourlocaluser@1.2.3.4
 #### Expose local DNS server
 
 ```
-$ zoro client -s 1.2.3.4:9999 -p password --serverPort 8888 -c 127.0.0.1:53
+$ zoro client --server 1.2.3.4:9999 --password password --serveport 8888 --client 127.0.0.1:53
 ```
 
 Then access `1.2.3.4:8888` equals to access `127.0.0.1:53`
@@ -120,7 +120,7 @@ $ dig github.com @1.2.3.4 -p 8888
 #### Expose local directory via HTTP
 
 ```
-$ zoro client -s 1.2.3.4:9999 -p password --serverPort 8888 --clientDirectory /path/to/www --clientPort 8080
+$ zoro client --server 1.2.3.4:9999 --password password --serverport 8888 --dir /path/to/www --dirport 8080
 ```
 
 Then access `1.2.3.4:8888` equals to access `127.0.0.1:8080`, web root is /path/to/www
@@ -128,11 +128,11 @@ Then access `1.2.3.4:8888` equals to access `127.0.0.1:8080`, web root is /path/
 #### Expose local brook server
 
 ```
-$ brook server -l :8080 -p password # or wsserver
-$ zoro client -s 1.2.3.4:9999 -p password --serverPort 8888 -c 127.0.0.1:8080
+$ brook server -l :8080 -p password
+$ zoro client --server 1.2.3.4:9999 --password password --serverport 8888 --client 127.0.0.1:8080
 ```
 
-Then access `1.2.3.4:8888` equals to access `127.0.0.1:8080`, used to create a brook server or wsserver in a server even if there is no public IP
+Then access `1.2.3.4:8888` equals to access `127.0.0.1:8080`, used to create a brook server in a server even if there is no public IP
 
 #### Expose any TCP/UDP service
 
