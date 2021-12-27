@@ -16,7 +16,7 @@ zoro (mr2) 帮助你将本地端口暴露在外网.**支持TCP/UDP**, 当然也�
 $ nami install zoro
 ```
 
-### 使用brew安装（macOS）
+### 使用brew安装
 
 ```
 $ brew install zoro
