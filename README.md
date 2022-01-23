@@ -2,9 +2,10 @@
 
 [中文](README_ZH.md)
 
-[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
-[![Donate](https://img.shields.io/badge/Support-Donate-ff69b4.svg)](https://github.com/sponsors/txthinking)
-[![Telegram](https://img.shields.io/badge/Join-Telegram-ff69b4.svg)](https://docs.google.com/forms/d/e/1FAIpQLSdzMwPtDue3QoezXSKfhW88BXp57wkbDXnLaqokJqLeSWP9vQ/viewform)
+[🗣 Talks](https://t.me/txthinking_talks)
+[💬 Join](https://join.txthinking.com)
+[🩸 Youtube](https://www.youtube.com/txthinking) 
+[❤️ Sponsor](https://github.com/sponsors/txthinking)
 
 zoro (mr2) can help you expose local server to external network. **Support both TCP/UDP**, of course support HTTP/HTTPS. Keep it **simple**, **stupid**.
 
