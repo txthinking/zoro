@@ -14,22 +14,18 @@ zoro (mr2) 帮助你将本地端口暴露在外网.**支持TCP/UDP**, 当然也�
 ### 使用[nami](https://github.com/txthinking/nami)安装
 
 ```
-$ nami install zoro
+nami install zoro
 ```
 
 ### 使用brew安装
 
 ```
-$ brew install zoro
+brew install zoro
 ```
 
 ### 公共 `zoro httpsserver`
 
-> 由 [@txthinking](https://github.com/txthinking) 提供
-
-```
-zoro httpsserver -l :9999 -p zoro -d zoro.ooo --googledns ./service_account.json
-```
+> `zoro httpsserver -l :9999 -p zoro -d zoro.ooo --googledns ./service_account.json` 由 [@txthinking](https://github.com/txthinking) 提供
 
 你可以直接使用这个 zoro httpsserver 而不用立即部署自己的 zoro httpsserver, 如下:
 
