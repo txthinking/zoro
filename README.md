@@ -14,22 +14,18 @@ zoro (mr2) can help you expose local server to external network. **Support both 
 ### Install via [nami](https://github.com/txthinking/nami)
 
 ```
-$ nami install zoro
+nami install zoro
 ```
 
 ### Install via brew
 
 ```
-$ brew install zoro
+brew install zoro
 ```
 
 ### Public `zoro httpsserver`
 
-> provide by [@txthinking](https://github.com/txthinking)
-
-```
-zoro httpsserver -l :9999 -p zoro -d zoro.ooo --googledns ./service_account.json
-```
+> `zoro httpsserver -l :9999 -p zoro -d zoro.ooo --googledns ./service_account.json` provide by [@txthinking](https://github.com/txthinking)
 
 You can use this zoro httpsserver directly without deploying your own zoro httpsserver immediately, as follows:
 
