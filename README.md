@@ -25,7 +25,7 @@ brew install zoro
 
 ### Public `zoro httpsserver`
 
-> `zoro httpsserver -l :9999 -p zoro -d zoro.ooo --googledns ./service_account.json` provide by [@txthinking](https://github.com/txthinking)
+>  server: `zoro.ooo:9999`, password: `zoro` -- provide by [@txthinking](https://github.com/txthinking)
 
 You can use this zoro httpsserver directly without deploying your own zoro httpsserver immediately, as follows:
 
