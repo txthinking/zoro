@@ -23,22 +23,6 @@ nami install zoro
 brew install zoro
 ```
 
-### Public `zoro httpsserver`
-
->  server: `zoro.ooo:9999`, password: `zoro` -- provide by [@txthinking](https://github.com/txthinking)
-
-You can use this zoro httpsserver directly without deploying your own zoro httpsserver immediately, as follows:
-
-```
-# Expose http://127.0.0.1:8080
-zoro httpsclient -s zoro.ooo:9999 -p zoro -c 127.0.0.1:8080
-
-# Expose current directory
-zoro httpsclient -s zoro.ooo:9999 -p zoro -d ./
-
-# Then, visit https://xxxxxxxxx.zoro.ooo
-```
-
 ### Usage
 
 ```
