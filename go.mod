@@ -15,7 +15,7 @@ require (
 	github.com/txthinking/crypto v0.0.0-20210716135230-de9624a415a4
 	github.com/txthinking/x v0.0.0-20210326105829-476fab902fbe
 	github.com/urfave/cli/v2 v2.3.0
-	golang.org/x/net v0.0.0-20210525063256-abc453219eb5 // indirect
+	golang.org/x/net v0.7.0 // indirect
 	google.golang.org/api v0.47.0 // indirect
 	google.golang.org/genproto v0.0.0-20210524171403-669157292da3 // indirect
 	google.golang.org/grpc v1.38.0 // indirect
