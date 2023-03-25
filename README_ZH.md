@@ -2,11 +2,6 @@
 
 [English](README.md)
 
-[🗣 News](https://t.me/txthinking_news)
-[💬 Chat](https://join.txthinking.com)
-[🩸 Youtube](https://www.youtube.com/txthinking) 
-[❤️ Sponsor](https://github.com/sponsors/txthinking)
-
 zoro (mr2) 帮助你将本地端口暴露在外网.**支持TCP/UDP**, 当然也支持HTTP/HTTPS. Keep it **simple**, **stupid**.
 
 ❤️ A project by [txthinking.com](https://www.txthinking.com)
