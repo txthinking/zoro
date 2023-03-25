@@ -2,11 +2,6 @@
 
 [中文](README_ZH.md)
 
-[🗣 News](https://t.me/txthinking_news)
-[💬 Chat](https://join.txthinking.com)
-[🩸 Youtube](https://www.youtube.com/txthinking) 
-[❤️ Sponsor](https://github.com/sponsors/txthinking)
-
 zoro (mr2) can help you expose local server to external network. **Support both TCP/UDP**, of course support HTTP/HTTPS. Keep it **simple**, **stupid**.
 
 ❤️ A project by [txthinking.com](https://www.txthinking.com)
